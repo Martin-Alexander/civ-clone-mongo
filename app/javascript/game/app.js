@@ -6,10 +6,10 @@ import { AnimationController } from "./controllers/animation_controller";
 import { TurnTransitioner }    from "./controllers/turn_transitioner";
 import { ReactController }     from "./controllers/react_controller";
 import { Renderer }            from "./views/renderer";
-import { ReactUI }            from "./views/react/react_ui";
+import { ReactUI }             from "./views/react/react_ui";
 import { EventRouter }         from "./event_router";
 import { UserInterface }       from "./user_interface";
-import { GameData }            from "./game_data";
+import GameData                from "./game_data";
 import { Rules }               from "./rules";
 
 const App = {

@@ -1,4 +1,4 @@
-import { Square } from "./../models/square";
+import Square from "./../models/square";
 import { MoveAnimation } from "./../models/move_animation";
 
 function AnimationController(renderer) {

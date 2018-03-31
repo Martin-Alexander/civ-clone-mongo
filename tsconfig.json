@@ -16,5 +16,8 @@
     "vendor",
     "public"
   ],
+  "inlcude": [
+    "app/javascript/interfaces/*.ts"
+  ],  
   "compileOnSave": false
 }
