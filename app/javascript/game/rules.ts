@@ -32,10 +32,10 @@ export default class Rules {
     const allowedOrders: OrderType[] = [];
   
     this.rulesJSON.units[UnitType.worker].allowed_orders.forEach((order) => {
-      if (this.rulesJSON.orders[order].type === "construction") {
+      if (this.rulesJSON.orders[order].type === RulesOrderType.construction) {
         if (order === OrderType.build_city) {
           if (player.growth > 0) allowedOrders.push(order); 
-        } else {
+        } else if (typeof square !== "undefined") {
           if (!square.hasCompletedStructure(this.constructionOrderStructure(order))) {
             allowedOrders.push(order);
           }
@@ -52,7 +52,7 @@ export default class Rules {
 
   // Returns the structure of a given construction order
   static constructionOrderStructure(orderName: OrderType): StructureType {
-    return this.rulesJSON.orders[orderName].type;
+    return this.rulesJSON.orders[orderName].structure;
   };
 
   // Returns the type of a given order

@@ -4,8 +4,8 @@ enum RulesOrderType {
   construction
 }
 
-interface UnitTypeLookup {
-  UnitType: {
+type UnitTypeLookup = {
+  [unit in UnitType]: {
     movement: {
       base: number;
     };
@@ -27,11 +27,11 @@ interface RulesStructureLookup {
   }
 }
 
-interface RulesOrderLookup { 
-  OrderType: {
+type RulesOrderLookup = { 
+  [order in OrderType]: {
     type: RulesOrderType;
     transform_to?: string;
-    structure?: StructureType;
+    structure: StructureType;
   }; 
 }
 

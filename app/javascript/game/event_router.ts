@@ -42,7 +42,7 @@ export default class EventRouter {
   };
 
   private disableTextSelection(): void {
-    function disableselect(event) { return false };
+    function disableselect(document: Document, event: Event): any { return false };
     document.onselectstart = disableselect;
     document.onmousedown = disableselect;
   };

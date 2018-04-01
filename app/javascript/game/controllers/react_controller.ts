@@ -3,6 +3,11 @@ import GameData from "./../game_data";
 import { NetworkController } from "./network_controller";
 import "./../../interfaces/window";
 
+interface Window {
+  updateUI(UI: UserInterface): void;
+  updateGameData(gameData: GameData): void;
+}
+
 declare const global: Window;
 
 export default class ReactController {
@@ -20,11 +25,11 @@ export default class ReactController {
     global.updateUI(this.UI);
   };
 
-  public updateGameData() {
+  public updateGameData(): void {
     global.updateGameData(this.gameData);
   };
 
-  public leaveGame() {
+  public leaveGame():void {
     this.networkController.leaveGame();
   };
 }

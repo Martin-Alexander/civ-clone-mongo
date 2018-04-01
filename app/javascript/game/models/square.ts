@@ -93,11 +93,11 @@ export default class Square {
     return this.structures.find(structure => structure.type === structureName);
   };
 
-  public getMilitaryUnit(): Unit {
+  public getMilitaryUnit(): Unit | undefined {
     return this.units.find(unit => unit.type !== UnitType.worker);
   };
 
-  public getCivilianUnit(): Unit {
+  public getCivilianUnit(): Unit | undefined {
     return this.units.find(unit => unit.type === UnitType.worker);
   };
 

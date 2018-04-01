@@ -10,7 +10,7 @@ export default class Structure {
 
   public complete: boolean;
   public construction_level: number;
-  public size: number | null;
+  public size: number;
 
   constructor(rawStructureData: RawStructureData, square: Square) {
     this.square = square;

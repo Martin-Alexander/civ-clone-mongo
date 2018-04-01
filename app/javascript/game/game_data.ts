@@ -52,7 +52,7 @@ export default class GameData {
     return this.square(col, row);
   };
 
-  public updatePlayersReady(playersReady): void {
+  public updatePlayersReady(playersReady: any[]): void {
     this.players.forEach((gameDataPlayers) => {
       playersReady.forEach((players) => {
         if (gameDataPlayers.number === players.number) {

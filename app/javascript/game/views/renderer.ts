@@ -17,11 +17,10 @@ export default class Renderer {
     this.gameData = gameData;
     this.parentElement = parentElement;
     this.animations = [];
+    [this.canvas, this.context] = this.initializeCanvasContext();
   };
 
   public initialize(): void {
-    [this.canvas, this.context] = this.initializeCanvasContext();
-  
     const self: Renderer = this;
   
     window.setInterval(function() {
