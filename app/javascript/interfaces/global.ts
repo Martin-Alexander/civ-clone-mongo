@@ -1,4 +1,4 @@
-interface Coordinates {
+interface Coords {
   x: number;
   y: number;
 }
@@ -23,7 +23,7 @@ interface RawStructureData {
 }
 
 interface RawUnitData {
-  go_to: Coordinates[];
+  go_to: Coords[];
   id: string;
   moves: number;
   order: string;
@@ -40,4 +40,36 @@ interface RawGameData {
   squares: RawSquareData[];
   state: string;
   turn: number;
+}
+
+interface Unit {
+  id: string;
+  player_number: number;
+  square: Square;
+  type: string;
+  go_to: Coords[];
+  strength: number;
+  moves: number;
+  order: string;
+  state: string;
+}
+
+interface Square {
+  id: string;
+  terrain: string;
+  type: string;
+  x: number;
+  y: number;
+  units: Unit[];
+  structures: Structure[];
+}
+
+interface Structure {
+  id: string;
+  type: string;
+  square: Square;
+  player_number: number;
+  complete: boolean;
+  construction_level: number;
+  size: number | null;
 }

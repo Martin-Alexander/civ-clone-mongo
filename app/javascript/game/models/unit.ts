@@ -6,7 +6,7 @@ export default class Unit {
   readonly square: Square;
   readonly type: string;
 
-  public go_to: Coordinates[];
+  public go_to: Coords[];
   public strength: number;
   public moves: number;
   public order: string;

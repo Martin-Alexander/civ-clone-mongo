@@ -8,12 +8,12 @@ import { ReactController }     from "./controllers/react_controller";
 import { Renderer }            from "./views/renderer";
 import { ReactUI }             from "./views/react/react_ui";
 import { EventRouter }         from "./event_router";
-import { UserInterface }       from "./user_interface";
+import UserInterface                      from "./user_interface";
 import GameData                from "./game_data";
 import { Rules }               from "./rules";
 
 const App = {
-  initialize() {
+  initialize: function() {
     const parentElement = document.getElementById("canvas-container");
 
     const UI                     = new UserInterface();
