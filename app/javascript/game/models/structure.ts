@@ -1,8 +1,10 @@
 import Square from "./square";
+import UserInterface from "./../user_interface";
+import { StructureType } from "./../../enums/modules";
 
 export default class Structure {
   readonly id: string;
-  readonly type: string;
+  readonly type: StructureType;
   readonly square: Square;
   readonly player_number: number;
 
@@ -21,8 +23,8 @@ export default class Structure {
   };
   
   // This is all going away when artwork is done, so I'm not going to bother making it look nice
-  public render(context: CanvasRenderingContext2D, UI: any): void {
-    if (this.type === "city") {
+  public render(context: CanvasRenderingContext2D, UI: UserInterface): void {
+    if (this.type === StructureType.city) {
       context.beginPath();
       context.ellipse(0, UI.tileHeight / 2, UI.tileWidth / 3, UI.tileHeight / 3, 0, Math.PI * 1.25, Math.PI * 0.25);
       context.fillStyle = this.typeColor();
@@ -42,8 +44,8 @@ export default class Structure {
   };
 
   // This is all going away when artwork is done, so I'm not going to bother making it look nice
-  public renderLabel(square: Square, canvas: HTMLCanvasElement, context: CanvasRenderingContext2D, UI: any) {
-    if (this.type === "city") {
+  public renderLabel(square: Square, canvas: HTMLCanvasElement, context: CanvasRenderingContext2D, UI: UserInterface) {
+    if (this.type === StructureType.city) {
       context.save();
       context.translate(
         (square.x - square.y) * (UI.tileWidth / 2) + (canvas.width / 2) + UI.offset.x, 

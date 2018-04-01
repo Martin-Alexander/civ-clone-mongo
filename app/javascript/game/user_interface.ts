@@ -1,3 +1,7 @@
+import Square from "./models/square";
+import Unit from "./models/unit";
+import Structure from "./models/structure";
+
 export default class UserInterface {
   public tileHeight: number;
   public tileWidth: number;

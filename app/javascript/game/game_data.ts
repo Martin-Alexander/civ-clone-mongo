@@ -1,15 +1,16 @@
 import Square from "./models/square";
+import UserInterface from "./user_interface";
 
 export default class GameData {
   readonly id: string;
   readonly size: number;
   
   public players: any[];
-  public UI: any;
+  public UI: UserInterface;
   public squares: Square[];
   public state: string;
 
-  public constructor(UI: any, rawGameDataString: string) {
+  public constructor(UI: UserInterface, rawGameDataString: string) {
     this.UI = UI;
 
     const rawGameData: RawGameData = JSON.parse(rawGameDataString);

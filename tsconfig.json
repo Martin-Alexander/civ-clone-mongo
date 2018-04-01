@@ -3,7 +3,7 @@
     "declaration": false,
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
-    "lib": ["es6", "dom"],
+    "lib": ["es7", "dom"],
     "module": "es6",
     "moduleResolution": "node",
     "sourceMap": true,
@@ -17,7 +17,7 @@
     "public"
   ],
   "inlcude": [
-    "app/javascript/interfaces/*.ts"
-  ],  
+    "**/*.ts"
+  ],
   "compileOnSave": false
 }

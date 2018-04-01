@@ -1,9 +1,10 @@
 import Unit from "./unit";
 import Structure from "./structure";
+import UserInterface from "./../user_interface";
 
 export default class Square {
   readonly id: string;
-  readonly terrain: string;
+  readonly terrain: TerrainType;
   readonly type: string;
   readonly x: number;
   readonly y: number;
@@ -50,7 +51,7 @@ export default class Square {
     return "#0e960c";
   };
 
-  public hasCompletedStructure(type: string): boolean {
+  public hasCompletedStructure(type: StructureType): boolean {
     return this.structures.some(structure => structure.type === type && structure.complete)
   };
 
@@ -62,7 +63,7 @@ export default class Square {
     return { x: this.x, y: this.y };
   };
 
-  public render(context: CanvasRenderingContext2D, UI: any): void {
+  public render(context: CanvasRenderingContext2D, UI: UserInterface): void {
     context.beginPath();
     context.moveTo(0, 0);
     context.lineTo(UI.tileWidth / 2, UI.tileHeight / 2);
@@ -83,28 +84,28 @@ export default class Square {
     }
   };
 
-  public hasStructure(structureName: string): boolean {
+  public hasStructure(structureName: StructureType): boolean {
     return this.structures.some(structure => structure.type === structureName);
   };
 
   // Assumes that only one structure of each type exists in a given square
-  public getStructure(structureName: string): any {
+  public getStructure(structureName: StructureType): any {
     return this.structures.find(structure => structure.type === structureName);
   };
 
   public getMilitaryUnit(): Unit {
-    return this.units.find(unit => unit.type !== "worker");
+    return this.units.find(unit => unit.type !== UnitType.worker);
   };
 
   public getCivilianUnit(): Unit {
-    return this.units.find(unit => unit.type === "worker");
+    return this.units.find(unit => unit.type === UnitType.worker);
   };
 
   public hasMilitaryUnit(): boolean {
-    return this.units.some(unit => unit.type !== "worker");
+    return this.units.some(unit => unit.type !== UnitType.worker);
   };
 
   public hasCivilianUnit(): boolean {
-    return this.units.some(unit => unit.type === "worker");
+    return this.units.some(unit => unit.type === UnitType.worker);
   };      
 }

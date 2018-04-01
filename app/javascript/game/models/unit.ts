@@ -1,15 +1,17 @@
 import Square from "./square";
+import UserInterface from "./../user_interface";
+import { UnitType } from "./../../enums/modules";
 
 export default class Unit {
   readonly id: string;
   readonly player_number: number;
   readonly square: Square;
-  readonly type: string;
+  readonly type: UnitType;
 
   public go_to: Coords[];
   public strength: number;
   public moves: number;
-  public order: string;
+  public order: OrderType;
   public state: string;
 
   public constructor(rawUnitData: RawUnitData, square: Square) {
@@ -24,7 +26,7 @@ export default class Unit {
     this.type = rawUnitData.type;
   };
 
-  public render(context: CanvasRenderingContext2D, UI: any): void {
+  public render(context: CanvasRenderingContext2D, UI: UserInterface): void {
     context.beginPath();
     context.ellipse(0, UI.tileHeight / 2, UI.tileWidth / 4, UI.tileHeight / 4, 0, Math.PI * 1.25, Math.PI * 0.25);
     context.fillStyle = this.playerColor();
@@ -59,8 +61,8 @@ export default class Unit {
     return unitTypeColorLookup[this.type];
   };
   
-  drawStrength(context: CanvasRenderingContext2D, UI: any): void | boolean {
-    if (this.type === "worker") return false;
+  drawStrength(context: CanvasRenderingContext2D, UI: UserInterface): void | boolean {
+    if (this.type === UnitType.worker) return false;
     context.font = `${(UI.tileHeight / 2)}px sans-serif`;
     context.fillStyle = "white";
     context.fillText(`${this.strength}`, -(UI.tileHeight / 7), UI.tileHeight * 0.65);
