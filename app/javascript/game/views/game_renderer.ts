@@ -3,7 +3,7 @@ import GameData from "./../game_data";
 import Square from "./../models/square";
 import { StructureType } from "../../enums/modules";
 
-export default class Renderer {
+export default class GameRenderer {
   readonly UI: UserInterface;
   readonly gameData: GameData;
   readonly parentElement: HTMLElement;
@@ -21,7 +21,7 @@ export default class Renderer {
   };
 
   public initialize(): void {
-    const self: Renderer = this;
+    const self: GameRenderer = this;
   
     window.setInterval(function() {
       self.drawAllSquares();

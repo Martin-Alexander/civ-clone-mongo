@@ -5,7 +5,7 @@ import GameDataController      from "./controllers/game_data_controller";
 import { AnimationController } from "./controllers/animation_controller";
 import { TurnTransitioner }    from "./controllers/turn_transitioner";
 import ReactController         from "./controllers/react_controller";
-import Renderer                from "./views/renderer";
+import GameRenderer                from "./views/game_renderer";
 import { ReactUI }             from "./views/react/react_ui";
 import EventRouter             from "./event_router";
 import UserInterface           from "./user_interface";
@@ -26,7 +26,7 @@ const App = {
 
     const UI                     = new UserInterface();
     const gameData               = new GameData(UI, rawGameData);
-    const renderer               = new Renderer(UI, gameData, parentElement);
+    const renderer               = new GameRenderer(UI, gameData, parentElement);
     const reactController        = new ReactController(UI, gameData, "I am a placeholer for the network controller");
     const gameDataController     = new GameDataController(gameData, UI, reactController);
     const animationController    = new AnimationController(renderer);
