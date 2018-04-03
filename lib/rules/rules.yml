@@ -13,21 +13,21 @@ orders:
   fortify:
     type: unit_state_transform
     transform_to: fortified
-  # siege:
-  #   type: unit_state_transform
-  #   transform_to: siege_mode
+  siege:
+    type: unit_state_transform
+    transform_to: siege_mode
   build_city:
     type: construction
     structure: city
   build_road:
     type: construction
     structure: road
-  # build_fortress:
-  #   type: construction
-  #   structure: fortress
-  # build_farm:
-  #   type: construction
-  #   structure: farm
+  build_fortress:
+    type: construction
+    structure: fortress
+  build_farm:
+    type: construction
+    structure: farm
 units:
   infantry:
     movement: 
@@ -36,7 +36,7 @@ units:
       - none
       - go
       - fortify
-      # - siege
+      - siege
   worker:
     movement: 
       base: 2
@@ -45,14 +45,11 @@ units:
       - go
       - build_city
       - build_road
-      # - build_fortress
-      # - build_farm
+      - build_fortress
+      - build_farm
   tank:
     movement: 
       base: 2
-      penalty_terrain: 
-        marsh: null
-        forest: 4
     allowed_orders:
       - none
       - go
@@ -85,18 +82,18 @@ terrain:
     type: water
     move_cost: 1
     fortification_bonus: null
-  # forest:
-  #   type: land
-  #   move_cost: 2
-  #   fortification_bonus: 3
-  # marsh:
-  #   type: land
-  #   move_cost: 2
-  #   fortification_bonus: null
-  # hill:
-  #   type: land
-  #   move_cost: 2
-  #   fortification_bonus: 2
+  forest:
+    type: land
+    move_cost: 2
+    fortification_bonus: 3
+  marsh:
+    type: land
+    move_cost: 2
+    fortification_bonus: null
+  hill:
+    type: land
+    move_cost: 2
+    fortification_bonus: 2
 structures:
   road:
     time_cost: 1
