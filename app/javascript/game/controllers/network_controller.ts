@@ -1,3 +1,28 @@
+declare module ActionCable {
+  interface Channel {
+    unsubscribe(): void;
+    perform(action: string, data: {}): void;
+  }
+
+  interface Subscriptions {
+    create(chan_name: any, obj: any): Channel;
+  }
+
+  interface Cable {
+    subscriptions: Subscriptions;
+  }
+
+  interface CreateMixin {
+    connected(): void;
+    disconnected(): void;
+    received(obj: Object): void;
+    [key: string]: Function;
+  }
+
+  function createConsumer(): Cable;
+  function createConsumer(url: string): Cable;
+}
+
 function NetworkController(turnTransitioner, gameDataController, animationController) {
   this.turnTransitioner = turnTransitioner;
   this.gameDataController = gameDataController;

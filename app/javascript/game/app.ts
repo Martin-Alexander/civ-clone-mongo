@@ -1,6 +1,6 @@
 import { UnitsController }     from "./controllers/units_controller";
 import { InputController }     from "./controllers/input_controller";
-import { NetworkController }   from "./controllers/network_controller";
+import NetworkController       from "./controllers/network_controller";
 import GameDataController      from "./controllers/game_data_controller";
 import AnimationController     from "./controllers/animation_controller";
 import TurnTransitioner        from "./controllers/turn_transitioner";
