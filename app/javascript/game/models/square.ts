@@ -55,7 +55,7 @@ export default class Square {
     return this.structures.some(structure => structure.type === type && structure.complete)
   };
 
-  public equalTo(otherSquare: Square): boolean {
+  public equalTo(otherSquare: Square | Coords): boolean {
     return this.x === otherSquare.x && this.y === otherSquare.y;
   };
 
