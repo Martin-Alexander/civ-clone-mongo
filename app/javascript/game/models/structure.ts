@@ -11,6 +11,7 @@ export default class Structure {
   public complete: boolean;
   public construction_level: number;
   public size: number;
+  public production: UnitType;
 
   constructor(rawStructureData: RawStructureData, square: Square) {
     this.square = square;
@@ -20,6 +21,7 @@ export default class Structure {
     this.player_number = rawStructureData.player_number;
     this.type = rawStructureData.type;
     this.size = rawStructureData.size;
+    this.production = rawStructureData.production;
   };
   
   // This is all going away when artwork is done, so I'm not going to bother making it look nice
