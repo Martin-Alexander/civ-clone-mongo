@@ -1,27 +1,4 @@
-declare module ActionCable {
-  interface Channel {
-    unsubscribe(): void;
-    perform(action: string, data: {}): void;
-  }
-
-  interface Subscriptions {
-    create(chan_name: any, obj: any): Channel;
-  }
-
-  interface Cable {
-    subscriptions: Subscriptions;
-  }
-
-  interface CreateMixin {
-    connected(): void;
-    disconnected(): void;
-    received(obj: Object): void;
-    [key: string]: Function;
-  }
-
-  function createConsumer(): Cable;
-  function createConsumer(url: string): Cable;
-}
+declare const gameId: any;
 
 function NetworkController(turnTransitioner, gameDataController, animationController) {
   this.turnTransitioner = turnTransitioner;
@@ -29,7 +6,8 @@ function NetworkController(turnTransitioner, gameDataController, animationContro
   this.animationController = animationController;
 
   App.cable.subscriptions.create({ channel: "GameChannel", room: gameId}, {
-    received: (data) => {      
+    received: (data) => {
+      console.log(data);
       switch (data.type) {
         case "piece_move":
           this.gameDataController.pieceMove(data, this.animationController.pieceMove.bind(this.animationController));
@@ -58,27 +36,27 @@ function NetworkController(turnTransitioner, gameDataController, animationContro
 }
 
 NetworkController.prototype.pieceMove = function(pieceMoveData) {
-  const payload = { method: "piece_move" };
+  const payload = { method: "piece_move", data: null };
   payload.data = pieceMoveData;
 
   this.send(payload);
 }
 
 NetworkController.prototype.pieceMerge = function(pieceMergeData) {
-  const payload = { method: "piece_merge" };
+  const payload = { method: "piece_merge", data: null };
   payload.data = pieceMergeData;
 
   this.send(payload);
 }
 
 NetworkController.prototype.nextTurn = function() {
-  const payload = { method: "next_turn" };
+  const payload = { method: "next_turn", data: null };
   this.send(payload);
   this.turnTransitioner.ready();
 }
 
 NetworkController.prototype.giveOrder = function(orderData) {
-  const payload = { method: "give_order" };
+  const payload = { method: "give_order", data: null };
   payload.data = orderData;
   this.send(payload)
 }
