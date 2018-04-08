@@ -88,33 +88,33 @@ export default class NetworkController {
     });
   };
 
-  pieceMove(pieceMoveData: any): void {
+  public pieceMove(pieceMoveData: any): void {
     const payload: Payload = { method: "piece_move" };
     payload.data = pieceMoveData;
 
     this.send(payload);
   };
 
-  pieceMerge(pieceMergeData: any): void {
+  public pieceMerge(pieceMergeData: any): void {
     const payload: Payload = { method: "piece_move" };
     payload.data = pieceMergeData;
 
     this.send(payload);
   };
 
-  nextTurn(): void {
+  public nextTurn(): void {
     const payload: Payload = { method: "next_turn" };
     this.send(payload);
     this.turnTransitioner.ready();
   };
 
-  giveOrder(orderData: any): void {
+  public giveOrder(orderData: any): void {
     const payload: Payload = { method: "give_order" };
     payload.data = orderData;
     this.send(payload)
   };
 
-  setProduction(structure: Structure, square: Square): void {
+  public setProduction(structure: Structure, square: Square): void {
     const payload: Payload = { 
       method: "set_production",
       square_id: square.id,
@@ -126,7 +126,7 @@ export default class NetworkController {
   };
 
 
-  getGameData(): void {
+  public getGameData(): void {
     const payload: Payload = { method: "get_game_data" };
     this.send(payload, (data) => {
       this.gameDataController.newGameData(data.new_game);
@@ -134,7 +134,7 @@ export default class NetworkController {
     });  
   };
   
-  leaveGame(): void {
+  public leaveGame(): void {
     fetch(`/game/${gameId}/leave`, {
       method: "POST",
       headers: {
@@ -148,7 +148,7 @@ export default class NetworkController {
     });
   };
 
-  send(payload: Payload, callback?: Function): void {
+  private send(payload: Payload, callback?: Function): void {
     payload.game = gameId;
   
     const response = fetch("/game/input", {
