@@ -13,7 +13,7 @@ export default class AnimationController {
     if (data.path.length < 2) { return false; }
 
     const fromSquare = new Square(data.new_squares[0]);
-    const toSquare = new Square(data.new_squares[0]);
+    const toSquare = new Square(data.new_squares[1]);
 
     const animationData: { [key: string]: any } = {
       unit: toSquare.units[0],
