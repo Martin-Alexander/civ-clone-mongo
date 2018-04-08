@@ -32,17 +32,13 @@ export default class GameData {
     return this.players.find(player => player.current_player);
   };
 
-  public square(col: any, row?: number): Square {
+  public square(col: Coords | number, row?: number): Square {
     let square: Square;
 
-    if (row === undefined) {
-      if (col.x !== undefined && col.y !== undefined) {
-        square = this.squares[col.y * (this.size + 1) + col.x];
-      } else {
-        square = this.squares[col];
-      }
-    } else {
+    if (typeof col === "number") {
       square = this.squares[row * (this.size + 1) + col];
+    } else {
+      square = this.squares[col.y * (this.size + 1) + col.x];
     }
 
     return square;
