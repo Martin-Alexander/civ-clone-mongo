@@ -3,6 +3,7 @@ import { PathFinder }       from "./../services/a_star/path_finder";
 import { AStar }            from "./../services/a_star/calculations/a_star";
 import UserInterface        from "./../user_interface";
 import NetworkController    from "./network_controller";
+import UnitsController      from "./units_controller";
 import ReactController      from "./react_controller";
 import GameData             from "../game_data";
 import Square               from "../models/square";
@@ -13,9 +14,9 @@ export default class InputController {
   readonly gameData: GameData;
   readonly networkController: NetworkController;
   readonly reactController: ReactController;
-  readonly unitsController: any;
+  readonly unitsController: UnitsController;
 
-  constructor(UI: UserInterface, gameData: GameData, networkController: NetworkController, reactController: ReactController, unitsController: any) {
+  constructor(UI: UserInterface, gameData: GameData, networkController: NetworkController, reactController: ReactController, unitsController: UnitsController) {
     this.UI                   = UI;
     this.gameData             = gameData;
     this.networkController    = networkController;
