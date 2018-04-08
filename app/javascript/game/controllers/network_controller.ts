@@ -1,115 +1,168 @@
+import GameDataController from "./game_data_controller";
+import AnimationController from "./animation_controller";
+import TurnTransitioner from "./turn_transitioner";
+import Structure from "../models/structure";
+import Square from "../models/square";
+
 declare const gameId: any;
 
-function NetworkController(turnTransitioner, gameDataController, animationController) {
-  this.turnTransitioner = turnTransitioner;
-  this.gameDataController = gameDataController;
-  this.animationController = animationController;
+declare module ActionCable {
+  interface Channel {
+    unsubscribe(): void;
+    perform(action: string, data: {}): void;
+  }
 
-  App.cable.subscriptions.create({ channel: "GameChannel", room: gameId}, {
-    received: (data) => {
-      console.log(data);
-      switch (data.type) {
-        case "piece_move":
-          this.gameDataController.pieceMove(data, this.animationController.pieceMove.bind(this.animationController));
-          break;
-        case "piece_merge":
-          this.gameDataController.pieceMove(data, this.animationController.pieceMove.bind(this.animationController));
-          break;          
-        case "next_turn":
-          this.turnTransitioner.begin();
-          data.move_animations.forEach((moveAnimation) => {
-            this.gameDataController.pieceMove(moveAnimation, this.animationController.pieceMove.bind(this.animationController));
-          });
-          this.getGameData();
-          break;
-        case "give_order":
-          this.gameDataController.giveOrder(data.new_square);
-          break;
-        case "player_ready":
-          this.gameDataController.updatePlayersReady(data.players_ready);
-          break;
-        default:
-          break;
-      }
-    }
-  });
+  interface Subscriptions {
+    // create(chan_name: string, obj: CreateMixin): Channel;
+    create(chan_name: any, obj: any): Channel;
+  }
+
+  interface Cable {
+    subscriptions: Subscriptions;
+  }
+
+  interface CreateMixin {
+    connected(): void;
+    disconnected(): void;
+    received(obj: Object): void;
+    [key: string]: Function;
+  }
+
+  function createConsumer(): Cable;
+  function createConsumer(url: string): Cable;
 }
 
-NetworkController.prototype.pieceMove = function(pieceMoveData) {
-  const payload = { method: "piece_move", data: null };
-  payload.data = pieceMoveData;
-
-  this.send(payload);
+declare interface AppInterface {
+  cable?: ActionCable.Cable;
+  network?: ActionCable.Channel;
 }
 
-NetworkController.prototype.pieceMerge = function(pieceMergeData) {
-  const payload = { method: "piece_merge", data: null };
-  payload.data = pieceMergeData;
+declare var App: AppInterface;
 
-  this.send(payload);
+interface Payload {
+  method: string;
+  game?: string;
+  data?: any;
+  square_id?: string;
+  structure_id?: string;
+  production?: UnitType;
 }
 
-NetworkController.prototype.nextTurn = function() {
-  const payload = { method: "next_turn", data: null };
-  this.send(payload);
-  this.turnTransitioner.ready();
-}
+export default class NetworkController {
+  readonly turnTransitioner: TurnTransitioner;
+  readonly gameDataController: GameDataController;
+  readonly animationController: AnimationController;
 
-NetworkController.prototype.giveOrder = function(orderData) {
-  const payload = { method: "give_order", data: null };
-  payload.data = orderData;
-  this.send(payload)
-}
+  constructor(turnTransitioner: TurnTransitioner, gameDataController: GameDataController, animationController: AnimationController) {
+    this.turnTransitioner = turnTransitioner;
+    this.gameDataController = gameDataController;
+    this.animationController = animationController;
 
-NetworkController.prototype.setProduction = function(structure, square) {
-  const payload = { 
-    method: "set_production",
-    square_id: square.id,
-    structure_id: structure.id,
-    production: structure.production
+    App.cable.subscriptions.create({ channel: "GameChannel", room: gameId }, {
+      received: (data) => {
+        console.log(data);
+        switch (data.type) {
+          case "piece_move":
+            this.gameDataController.pieceMove(data, this.animationController.pieceMove.bind(this.animationController));
+            break;
+          case "piece_merge":
+            this.gameDataController.pieceMove(data, this.animationController.pieceMove.bind(this.animationController));
+            break;          
+          case "next_turn":
+            this.turnTransitioner.begin();
+            data.move_animations.forEach((moveAnimation) => {
+              this.gameDataController.pieceMove(moveAnimation, this.animationController.pieceMove.bind(this.animationController));
+            });
+            this.getGameData();
+            break;
+          case "give_order":
+            this.gameDataController.giveOrder(data.new_square);
+            break;
+          case "player_ready":
+            this.gameDataController.updatePlayersReady(data.players_ready);
+            break;
+          default:
+            break;
+        }
+      }      
+    });
   };
 
-  this.send(payload)
+  pieceMove(pieceMoveData: any): void {
+    const payload: Payload = { method: "piece_move" };
+    payload.data = pieceMoveData;
+
+    this.send(payload);
+  };
+
+  pieceMerge(pieceMergeData: any): void {
+    const payload: Payload = { method: "piece_move" };
+    payload.data = pieceMergeData;
+
+    this.send(payload);
+  };
+
+  nextTurn(): void {
+    const payload: Payload = { method: "next_turn" };
+    this.send(payload);
+    this.turnTransitioner.ready();
+  };
+
+  giveOrder(orderData: any): void {
+    const payload: Payload = { method: "give_order" };
+    payload.data = orderData;
+    this.send(payload)
+  };
+
+  setProduction(structure: Structure, square: Square): void {
+    const payload: Payload = { 
+      method: "set_production",
+      square_id: square.id,
+      structure_id: structure.id,
+      production: structure.production
+    };
+  
+    this.send(payload)
+  };
+
+
+  getGameData(): void {
+    const payload: Payload = { method: "get_game_data" };
+    this.send(payload, (data) => {
+      this.gameDataController.newGameData(data.new_game);
+      this.turnTransitioner.end();
+    });  
+  };
+  
+  leaveGame(): void {
+    fetch(`/game/${gameId}/leave`, {
+      method: "POST",
+      headers: {
+        'X-Requested-With': 'XMLHttpRequest',
+        'X-CSRF-Token': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
+      },
+      credentials: "same-origin"
+    }).then(response => response.json())
+    .then((data) => {
+      console.log(data);
+    });
+  };
+
+  send(payload: Payload, callback?: Function): void {
+    payload.game = gameId;
+  
+    const response = fetch("/game/input", {
+      method: "POST",
+      headers: {
+        'X-Requested-With': 'XMLHttpRequest',
+        'X-CSRF-Token': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
+      },
+      body: JSON.stringify(payload),
+      credentials: "same-origin"
+    }).then(response => response.json()).then((data) => {
+      if (callback) { callback(data); }
+    });
+  };
 }
-
-NetworkController.prototype.getGameData = function() {
-  const payload = { method: "get_game_data" };
-  this.send(payload, (data) => {
-    this.gameDataController.newGameData(data.new_game);
-    this.turnTransitioner.end();
-  });  
-}
-
-NetworkController.prototype.leaveGame = function() {
-  fetch(`/game/${gameId}/leave`, {
-    method: "POST",
-    headers: {
-      'X-Requested-With': 'XMLHttpRequest',
-      'X-CSRF-Token': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
-    },
-    credentials: "same-origin"
-  }).then(response => response.json())
-  .then((data) => {
-    console.log(data);
-  });
-}
-
-NetworkController.prototype.send = function(payload, callback) {
-  payload.game = gameId;
-
-  const response = fetch("/game/input", {
-    method: "POST",
-    headers: {
-      'X-Requested-With': 'XMLHttpRequest',
-      'X-CSRF-Token': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
-      'Content-Type': 'application/json',
-      'Accept': 'application/json'
-    },
-    body: JSON.stringify(payload),
-    credentials: "same-origin"
-  }).then(response => response.json()).then((data) => {
-    if (callback) { callback(data); }
-  });
-};
-
-export { NetworkController };

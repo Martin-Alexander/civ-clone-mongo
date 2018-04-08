@@ -5,4 +5,5 @@ interface RawStructureData {
   player_number: number;
   type: StructureType;
   size: number | null;
+  production: UnitType;
 }
