@@ -1,5 +1,5 @@
-import { UnitsController }     from "./controllers/units_controller";
-import { InputController }     from "./controllers/input_controller";
+import UnitsController         from "./controllers/units_controller";
+import InputController         from "./controllers/input_controller";
 import NetworkController       from "./controllers/network_controller";
 import GameDataController      from "./controllers/game_data_controller";
 import AnimationController     from "./controllers/animation_controller";
@@ -27,7 +27,7 @@ const App = {
     const UI                     = new UserInterface();
     const gameData               = new GameData(UI, rawGameData);
     const renderer               = new GameRenderer(UI, gameData, parentElement);
-    const reactController        = new ReactController(UI, gameData, "I am a placeholer for the network controller");
+    const reactController        = new ReactController(UI, gameData);
     const gameDataController     = new GameDataController(gameData, UI, reactController);
     const animationController    = new AnimationController(renderer);
     const turnTransitioner       = new TurnTransitioner(UI, reactController);

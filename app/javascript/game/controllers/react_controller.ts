@@ -14,10 +14,10 @@ export default class ReactController {
   readonly gameData: GameData;
   readonly networkController: NetworkController;
 
-  constructor(UI: UserInterface, gameData: GameData, networkController: NetworkController) {
+  constructor(UI: UserInterface, gameData: GameData, networkController?: NetworkController) {
     this.UI = UI;
     this.gameData = gameData;
-    this.networkController = networkController;
+    // this.networkController = networkController;
   };
 
   public updateUI():void {
@@ -28,7 +28,7 @@ export default class ReactController {
     global.updateGameData(this.gameData);
   };
 
-  public leaveGame():void {
-    this.networkController.leaveGame();
-  };
+  // public leaveGame():void {
+    // this.networkController.leaveGame();
+  // };
 }
