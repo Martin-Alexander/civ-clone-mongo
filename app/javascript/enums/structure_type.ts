@@ -1,4 +1,4 @@
-enum StructureType {
+export enum StructureType {
   road = "road",
   city = "city",
   farm = "farm",
