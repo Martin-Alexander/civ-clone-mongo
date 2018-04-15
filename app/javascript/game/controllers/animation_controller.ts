@@ -1,5 +1,5 @@
 import Square from "./../models/square";
-import { MoveAnimation } from "./../models/move_animation";
+import MoveAnimation from "./../models/move_animation";
 import GameRenderer from "../views/game_renderer";
 
 export default class AnimationController {
