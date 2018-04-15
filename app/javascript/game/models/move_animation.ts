@@ -6,7 +6,7 @@ import AnimationData from "./animation_data";
 
 export default class MoveAnimation {
   readonly animationData: any;
-  readonly callback: (() => any);
+  readonly callback: animationCallbackFunction;
   readonly fromSquare: Coords;
   readonly toSquare: Coords;
   readonly unit: Unit;
@@ -17,7 +17,7 @@ export default class MoveAnimation {
   public counter: number;
   public done: boolean;
 
-  constructor(animationData: AnimationData, callback: (() => any)) {
+  constructor(animationData: AnimationData, callback: animationCallbackFunction) {
     this.animationData = animationData;
     this.callback = callback;
     this.fromSquare = animationData.path[animationData.index];

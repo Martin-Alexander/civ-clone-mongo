@@ -14,17 +14,14 @@ export default class GameDataController {
     this.reactController = reactController;
   };
   
-  public pieceMove(data: any, animationCallback: Function): boolean {
+  public pieceMove(data: any, animationCallback: ((data: any, callback: animationCallbackFunction) => void)): boolean {
     if (!data.success) { return false; }
   
     this.replaceSquare(data.new_squares[0])
     if (data.new_squares[1]) {
       animationCallback(data, () => {
         const newSquare = this.replaceSquare(data.new_squares[1])
-        if (!this.UI.ongoingTurnTransition && newSquare.units[0].player_number == this.gameData.getCurrentPlayer().number) {
-          // this.updateSelectedSquare(newSquare);
-        }
-      })
+      });
     }
 
     return true;

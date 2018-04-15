@@ -10,7 +10,7 @@ export default class AnimationController {
     this.renderer = renderer;
   };
 
-  public pieceMove(data: any, callback: (() => any)): boolean {
+  public pieceMove(data: any, callback: animationCallbackFunction): boolean {
     if (data.path.length < 2) { return false; }
 
     const fromSquare = new Square(data.new_squares[0]);
@@ -28,7 +28,7 @@ export default class AnimationController {
     return true;
   };
 
-  public loadNextPieceMoveAnimation(animationData: AnimationData, callback: (() => any)): void {
+  public loadNextPieceMoveAnimation(animationData: AnimationData, callback: animationCallbackFunction): void {
     if (animationData.index < animationData.path.length - 2) {
       animationData.index += 1;
       this.renderer.addAnimation(new MoveAnimation(animationData, callback));
