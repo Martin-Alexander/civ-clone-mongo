@@ -2,21 +2,22 @@ import Square from "./square";
 import Unit from "./unit";
 import AnimationController from "../controllers/animation_controller";
 import UserInterface from "../user_interface";
+import AnimationData from "./animation_data";
 
 export default class MoveAnimation {
   readonly animationData: any;
   readonly callback: (() => any);
-  readonly fromSquare: Square;
-  readonly toSquare: Square;
+  readonly fromSquare: Coords;
+  readonly toSquare: Coords;
   readonly unit: Unit;
   readonly animationController: AnimationController;
   readonly xDirection: number;
   readonly yDirection: number;
   
-  private counter: number;
-  private done: boolean;
+  public counter: number;
+  public done: boolean;
 
-  constructor(animationData: any, callback: (() => any)) {
+  constructor(animationData: AnimationData, callback: (() => any)) {
     this.animationData = animationData;
     this.callback = callback;
     this.fromSquare = animationData.path[animationData.index];
