@@ -14,7 +14,7 @@ export default class UnitsController {
   public networkController: NetworkController;
   public destinationSquare: Square;
 
-  constructor(UI, gameData, networkController) {
+  constructor(UI: UserInterface, gameData: GameData, networkController: NetworkController) {
     this.UI = UI;
     this.gameData = gameData;
     this.networkController = networkController;    
@@ -64,7 +64,7 @@ export default class UnitsController {
       allSquaresAreDestinations: true
     });
 
-    return reachableSquares.map(coordinates => this.gameData.findSquare(coordinates)).includes(this.destinationSquare);
+    return reachableSquares.map((coordinates: any) => this.gameData.findSquare(coordinates)).includes(this.destinationSquare);
   };
   
   public allowedToMerge(): boolean {

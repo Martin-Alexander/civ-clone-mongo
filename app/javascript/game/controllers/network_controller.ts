@@ -3,6 +3,7 @@ import AnimationController from "./animation_controller";
 import TurnTransitioner from "./turn_transitioner";
 import Structure from "../models/structure";
 import Square from "../models/square";
+import MoveAnimation from "../models/move_animation";
 
 declare const gameId: any;
 
@@ -59,7 +60,7 @@ export default class NetworkController {
     this.animationController = animationController;
 
     App.cable.subscriptions.create({ channel: "GameChannel", room: gameId }, {
-      received: (data) => {
+      received: (data: any) => {
         console.log(data);
         switch (data.type) {
           case "piece_move":
@@ -70,7 +71,7 @@ export default class NetworkController {
             break;          
           case "next_turn":
             this.turnTransitioner.begin();
-            data.move_animations.forEach((moveAnimation) => {
+            data.move_animations.forEach((moveAnimation: MoveAnimation) => {
               this.gameDataController.pieceMove(moveAnimation, this.animationController.pieceMove.bind(this.animationController));
             });
             this.getGameData();
@@ -128,7 +129,7 @@ export default class NetworkController {
 
   public getGameData(): void {
     const payload: Payload = { method: "get_game_data" };
-    this.send(payload, (data) => {
+    this.send(payload, (data: any) => {
       this.gameDataController.newGameData(data.new_game);
       this.turnTransitioner.end();
     });  

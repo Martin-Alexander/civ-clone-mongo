@@ -1,7 +1,6 @@
 import Unit from "./unit";
 import Structure from "./structure";
 import UserInterface from "./../user_interface";
-import { StructureType } from "./../../enums/structure_type";
 
 export default class Square {
   readonly id: string;
