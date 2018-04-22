@@ -1,5 +1,5 @@
 import AStarSquareCollection     from "./../a_star_square_collection";
-import { BoardMethods }          from "./../board_methods";
+import BoardMethods              from "./../board_methods";
 import AStarSquare               from "./../a_star_square";
 
 // This is a basic implementation of the A* algorithm that is designed to find a path between two
