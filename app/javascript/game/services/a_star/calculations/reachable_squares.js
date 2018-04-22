@@ -1,6 +1,6 @@
-import { AStarSquare }           from "./../a_star_square";
+import AStarSquare               from "./../a_star_square";
 import { BoardMethods }          from "./../board_methods";
-import { AStarSquareCollection } from "./../a_star_square_collection";
+import AStarSquareCollection     from "./../a_star_square_collection";
 import { findAvailableMoves }    from "./../find_available_moves";
 
 // The purpose is, for a given unit and square, return all the squares that it is capable of

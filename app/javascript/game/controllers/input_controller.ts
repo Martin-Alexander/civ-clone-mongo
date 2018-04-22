@@ -7,7 +7,6 @@ import UnitsController      from "./units_controller";
 import ReactController      from "./react_controller";
 import GameData             from "../game_data";
 import Square               from "../models/square";
-import { StructureType }    from "./../../enums/structure_type";
 
 export default class InputController {
   readonly UI: UserInterface;
