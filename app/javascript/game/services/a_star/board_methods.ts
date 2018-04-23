@@ -5,11 +5,7 @@ import AStarSquare from "./a_star_square";
 export default class BoardMethods {
   public squares: AStarSquareCollection;
 
-  public neighbours(square: Square, radius?: number): Square[] {
-    if (typeof radius == 'undefined') {
-      var radius = 1;
-    }
-
+  public neighbours(square: AStarSquare, radius: number = 1): AStarSquare[] {
     const xRange = Array.from(new Array(radius * 2 + 1), (x, i) => i + -radius);
     const yRange = Array.from(new Array(radius * 2 + 1), (x, i) => i + -radius);
     const neighbourSquares = [];
@@ -31,7 +27,7 @@ export default class BoardMethods {
     return neighbourSquares;
   };
 
-  public neighboursAndCurrentSquare(square: Square, radius?: number): Square[] {
+  public neighboursAndCurrentSquare(square: AStarSquare, radius: number = 1): AStarSquare[] {
     const neighbourSquares = this.neighbours(square, radius);
     neighbourSquares.push(square);
   

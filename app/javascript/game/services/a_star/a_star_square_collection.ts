@@ -103,7 +103,7 @@ export default class AStarSquareCollection extends Array<AStarSquare> {
   };
 
   // Returns the first square in the collection and removes it
-  public cgetNewCurrentSquare(): AStarSquare {
+  public getNewCurrentSquare(): AStarSquare {
     const newCurrentSquare = this[0];
     this.splice(0, 1);
   
