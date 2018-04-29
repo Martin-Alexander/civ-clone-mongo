@@ -4,13 +4,14 @@ import Square from "../../models/square";
 type DifferenceFunction = (a: AStarSquare, b: AStarSquare) => number;
 
 // Represents a collection of AStarSquares
-export default class AStarSquareCollection extends Array<AStarSquare> {
+export default class AStarSquareCollection {
   readonly size: number;
+  readonly aStarSquares: AStarSquare[];
 
-  constructor(...args) {
-    super(...args);
-
-    this.size = Math.sqrt(this.length) - 1;
+  constructor(aStarSquares: AStarSquare[]) {
+    this.aStarSquares = aStarSquares;
+    
+    this.size = Math.sqrt(this.aStarSquares.length) - 1;
   };
 
   static generateFromGameSquares(gameSquares: Square[], finishSquare?: Square, allSquaresAreDestinations: boolean = false): AStarSquareCollection {
@@ -23,8 +24,8 @@ export default class AStarSquareCollection extends Array<AStarSquare> {
   
   // Similar to Ruby's Array#include? method
   public includes(square: AStarSquare): boolean {
-    for(let i = 0; i < this.length; i++) {
-      // if (square.equalTo(this[i])) return true;
+    for(let i = 0; i < this.aStarSquares.length; i++) {
+      if (square.equalTo(this.aStarSquares[i])) return true;
     }
   
     return false;
@@ -58,7 +59,7 @@ export default class AStarSquareCollection extends Array<AStarSquare> {
   
   // Sorts AStarSquares by a given difference function
   private baseSort(endSquare: AStarSquare, differenceFunction: DifferenceFunction): void {
-    this.sort((a, b) => {
+    this.aStarSquares.sort((a, b) => {
       const difference = differenceFunction(a, b);
       if (difference > 0) {
         return 1;
@@ -93,26 +94,26 @@ export default class AStarSquareCollection extends Array<AStarSquare> {
 
   // Performs a lookup based on AStarSquare coordinates
   // Should only be used when a AStarSquareCollection is representing an entire board
-  public findSquare = function(x: number, y: number): AStarSquare {
+  public findSquare(x: number, y: number): AStarSquare {
     return this[y * (this.size + 1) + x];
   };
 
   // Adds a square to the collection
-  public addSquare = function(square: AStarSquare): void {
-    this.push(square);
+  public addSquare(square: AStarSquare): void {
+    this.aStarSquares.push(square);
   };
 
   // Returns the first square in the collection and removes it
   public getNewCurrentSquare(): AStarSquare {
-    const newCurrentSquare = this[0];
-    this.splice(0, 1);
+    const newCurrentSquare = this.aStarSquares[0];
+    this.aStarSquares.splice(0, 1);
   
     return newCurrentSquare;
   };
   
   // Returns whether or not the collection is emply
   public stillHasSquaresLeft(): boolean {
-    return this.length > 0;
+    return this.aStarSquares.length > 0;
   };
 
   // // The inverserve of AStarSquareCollection.prototype.includes

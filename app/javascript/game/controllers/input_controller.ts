@@ -1,12 +1,14 @@
-import { ReachableSquares } from "./../services/a_star/calculations/reachable_squares";
+import ReachableSquares     from "./../services/a_star/calculations/reachable_squares";
 import { PathFinder }       from "./../services/a_star/path_finder";
-import { AStar }            from "./../services/a_star/calculations/a_star";
+import AStar                from "./../services/a_star/calculations/a_star";
 import UserInterface        from "./../user_interface";
 import NetworkController    from "./network_controller";
 import UnitsController      from "./units_controller";
 import ReactController      from "./react_controller";
 import GameData             from "../game_data";
 import Square               from "../models/square";
+import ReachableSquaresParams from "../interfaces/reachable_squares_params";
+import { StructureType } from "../../enums/modules";
 
 export default class InputController {
   readonly UI: UserInterface;
@@ -226,11 +228,16 @@ export default class InputController {
   };
   
   private findReachableSquares(): Square[] {
-    const reachableSquares = ReachableSquares.run({
+    const params: ReachableSquaresParams = {
       squares: this.gameData.squares,
       unit: this.UI.selection.unit,
-      startSquare: this.UI.selection.square
-    });
+      startSquare: this.UI.selection.square,
+      finishSquare: null,
+      allSquaresAreDestinations: false,
+      freshMoves: false
+    }
+
+    const reachableSquares = ReachableSquares.run(params);
 
     return reachableSquares.map(squareCooridinates => this.gameData.findSquare(squareCooridinates));
   };

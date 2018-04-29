@@ -5,10 +5,14 @@ import AStarSquare from "./a_star_square";
 export default class BoardMethods {
   public squares: AStarSquareCollection;
 
+  constructor(squares: AStarSquareCollection) {
+    this.squares = squares;
+  }
+
   public neighbours(square: AStarSquare, radius: number = 1): AStarSquare[] {
     const xRange = Array.from(new Array(radius * 2 + 1), (x, i) => i + -radius);
     const yRange = Array.from(new Array(radius * 2 + 1), (x, i) => i + -radius);
-    const neighbourSquares = [];
+    const neighbourSquares: AStarSquare[] = [];
   
     xRange.forEach((x) => {
       yRange.forEach((y) => {
@@ -35,7 +39,7 @@ export default class BoardMethods {
   };
 
   public findSquare(x: number, y: number): AStarSquare {
-    return this.squares[y * (this.squares.size + 1) + x];
+    return this.squares.aStarSquares[y * (this.squares.size + 1) + x];
   };
 }  
 

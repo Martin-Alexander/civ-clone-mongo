@@ -1,24 +1,11 @@
-import AStarSquare               from "./../a_star_square";
-import BoardMethods              from "./../board_methods";
-import AStarSquareCollection     from "./../a_star_square_collection";
-import { findAvailableMoves }    from "./../find_available_moves";
+import AStarSquare from "./../a_star_square";
+import BoardMethods from "./../board_methods";
+import AStarSquareCollection from "./../a_star_square_collection";
+import { findAvailableMoves } from "./../find_available_moves";
 import Unit from "../../../models/unit";
 import Square from "../../../models/square";
-
-interface ReachableSquaresParams {
-  squares: Square[];
-  finishSquare: Square;
-  startSquare: Square;
-  allSquaresAreDestinations: boolean;
-  freshMoves: boolean;
-  unit: Unit;
-}
-
-interface ReachableSquaresResult {
-  x: number;
-  y: number;
-  moveToCost: number;
-}
+import ReachableSquaresParams from "../../../interfaces/reachable_squares_params";
+import ReachableSquaresResults from "../../../interfaces/reachable_squares_results";
 
 // The purpose is, for a given unit and square, return all the squares that it is capable of
 // reaching in a single turn
@@ -29,7 +16,7 @@ export default class ReachableSquares extends BoardMethods {
   readonly freshMoves: boolean;
 
   constructor(squares: AStarSquareCollection, unit: Unit, startSquare: Square, freshMoves: boolean) {
-    super();
+    super(squares);
 
     this.unit = unit;
     this.startSquare = new AStarSquare(startSquare);
@@ -40,21 +27,21 @@ export default class ReachableSquares extends BoardMethods {
   // ReachableSquares is used by calling the method `run` which takes in an array of game squares,
   // converts them into a grid of AStarSquares, and returns all reachable squares of a given unit
   // squares :gameData.squares, unit :unit, startSquare :aStarSquare, freshMoves :bool, finishSquare :bool, allSquaresAreDestinations :bool
-  static run(params: ReachableSquaresParams) {
+  static run(params: ReachableSquaresParams): ReachableSquaresResults[] {
     const aStarSquares = AStarSquareCollection.generateFromGameSquares(params.squares, params.finishSquare, params.allSquaresAreDestinations);
     return new ReachableSquares(aStarSquares, params.unit, params.startSquare, params.freshMoves).find();
   };
   
-  public find(): ReachableSquaresResult[] {
+  public find(): ReachableSquaresResults[] {
     // The heavy lifting happens here
     // Similar to the plain AStar function, we store to-be explored squares in `opennedSquares`...
     const openedSquares    = new AStarSquareCollection([this.startSquare]);
   
     // ...and already explored squares in closed squares
-    const closedSquares    = new AStarSquareCollection();
+    const closedSquares    = new AStarSquareCollection([]);
   
     // This stores all squares that are reachable and is the ultimate product of this function
-    const reachableSquares = new AStarSquareCollection();
+    const reachableSquares = new AStarSquareCollection([]);
   
     // Calculates how many moves the unit has for this algorithm to spend looking for reachable
     // squares
@@ -101,7 +88,7 @@ export default class ReachableSquares extends BoardMethods {
 
   // Transforms each square in the set of reachable squares to just its coordinates and the cost of
   // reaching it
-  private transformToCoordinates(squares: AStarSquare[]): ReachableSquaresResult[] {
-    return squares.map(square => ({ x: square.x, y: square.y, moveToCost: square.currentPathCost }));
+  private transformToCoordinates(squares: AStarSquareCollection): ReachableSquaresResults[] {
+    return squares.aStarSquares.map(square => ({ x: square.x, y: square.y, moveToCost: square.currentPathCost }));
   };
 }

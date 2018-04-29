@@ -1,6 +1,7 @@
 import Square from "../../models/square";
 import Rules from "../../rules";
 import Unit from "../../models/unit";
+import { StructureType } from "../../../enums/modules"
 
 export default class AStarSquare {
   readonly x: number;

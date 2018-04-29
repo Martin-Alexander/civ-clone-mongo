@@ -1,7 +1,7 @@
 import UserInterface        from "./../user_interface";
 import GameData             from "./../game_data";
 import NetworkController    from "./network_controller";
-import { ReachableSquares } from "./../services/a_star/calculations/reachable_squares";
+import ReachableSquares     from "./../services/a_star/calculations/reachable_squares";
 import Square from "../models/square";
 import Unit from "../models/unit";
 
@@ -61,7 +61,9 @@ export default class UnitsController {
       squares: this.gameData.squares,
       unit: this.UI.selection.unit,
       startSquare: this.UI.selection.square,
-      allSquaresAreDestinations: true
+      allSquaresAreDestinations: true,
+      finishSquare: null,
+      freshMoves: false
     });
 
     return reachableSquares.map((coordinates: any) => this.gameData.findSquare(coordinates)).includes(this.destinationSquare);
