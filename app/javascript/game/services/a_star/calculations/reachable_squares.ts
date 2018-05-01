@@ -1,7 +1,7 @@
 import AStarSquare from "./../a_star_square";
 import BoardMethods from "./../board_methods";
 import AStarSquareCollection from "./../a_star_square_collection";
-import { findAvailableMoves } from "./../find_available_moves";
+import findAvailableMoves from "./../find_available_moves";
 import Unit from "../../../models/unit";
 import Square from "../../../models/square";
 import ReachableSquaresParams from "../../../interfaces/reachable_squares_params";

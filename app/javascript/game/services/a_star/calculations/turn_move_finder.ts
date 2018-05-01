@@ -1,5 +1,5 @@
 import AStarSquareCollection     from "./../a_star_square_collection";
-import { findAvailableMoves }    from "./../find_available_moves";
+import findAvailableMoves        from "./../find_available_moves";
 import ReachableSquares          from "./reachable_squares";
 import AStarSquare               from "./../a_star_square";
 import GameData from "../../../game_data";
