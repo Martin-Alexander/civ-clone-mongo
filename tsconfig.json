@@ -9,9 +9,13 @@
     "sourceMap": true,
     "target": "es5",
     "jsx": "react",
-    // "strict": true,
-    // "alwaysStrict": false,
-    // "strictNullChecks": false
+    "alwaysStrict": true,
+    "strictNullChecks": false,
+    "forceConsistentCasingInFileNames": true,
+    "noImplicitReturns": true,
+    "noImplicitAny": false, // this will be enable once everything is TS
+    "strict": true,
+    "noUnusedLocals": true,  
   },
   "exclude": [
     "**/*.spec.ts",
@@ -23,8 +27,4 @@
     "**/*.ts"
   ],
   "compileOnSave": false,
-  "forceConsistentCasingInFileNames": true,
-  "noImplicitReturns": true,
-  "strict": true,
-  "noUnusedLocals": true,  
 }

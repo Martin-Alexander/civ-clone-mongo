@@ -33,10 +33,10 @@ export default class TurnMoveFinder {
     return new TurnMoveFinder(squares, unit, finishSquare).find();
   };
 
-  public find() {
+  public find(): Coords[] {
     if (this.finishSquare.isUnsuitableForPathfinding(this.unit)) { return []; }
   
-    const closedSquares = new AStarSquareCollection();
+    const closedSquares = new AStarSquareCollection([]);
     const openedSquares = new AStarSquareCollection([this.startSquare]);
   
     this.startSquare.currentPathCost = 0;
@@ -78,6 +78,8 @@ export default class TurnMoveFinder {
       counter++;
       this.freshMoves = true;
     }
+
+    return [];
   };
 
   public getReachableSquares(squares: Square[], unit: Unit, currentSquare: Square, freshMoves: boolean, finishSquare: Square): AStarSquare[] {

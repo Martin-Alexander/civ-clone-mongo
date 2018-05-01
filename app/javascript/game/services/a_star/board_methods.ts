@@ -1,4 +1,3 @@
-import Square from "../../models/square";
 import AStarSquareCollection from "./a_star_square_collection";
 import AStarSquare from "./a_star_square";
 

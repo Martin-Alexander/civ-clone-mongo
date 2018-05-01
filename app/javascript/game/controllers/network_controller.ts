@@ -152,7 +152,7 @@ export default class NetworkController {
   private send(payload: Payload, callback?: Function): void {
     payload.game = gameId;
   
-    const response = fetch("/game/input", {
+    fetch("/game/input", {
       method: "POST",
       headers: {
         'X-Requested-With': 'XMLHttpRequest',

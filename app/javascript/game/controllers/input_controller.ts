@@ -1,6 +1,5 @@
 import ReachableSquares     from "./../services/a_star/calculations/reachable_squares";
 import { PathFinder }       from "./../services/a_star/path_finder";
-import AStar                from "./../services/a_star/calculations/a_star";
 import UserInterface        from "./../user_interface";
 import NetworkController    from "./network_controller";
 import UnitsController      from "./units_controller";
@@ -17,7 +16,13 @@ export default class InputController {
   readonly reactController: ReactController;
   readonly unitsController: UnitsController;
 
-  constructor(UI: UserInterface, gameData: GameData, networkController: NetworkController, reactController: ReactController, unitsController: UnitsController) {
+  constructor(
+    UI: UserInterface,
+    gameData: GameData,
+    networkController: NetworkController,
+    reactController: ReactController,
+    unitsController: UnitsController
+  ) {
     this.UI                   = UI;
     this.gameData             = gameData;
     this.networkController    = networkController;
@@ -91,7 +96,7 @@ export default class InputController {
   };
 
   // Releasing the right mouse button and issuing a unit move or canceling
-  public moveUnit() {
+  public moveUnit(): boolean {
     if (!this.authorized("moveUnit")) { return false; }
     if (!this.UI.selection.unit) { return false; }
     if (!this.UI.selection.square.isOwnedBy(this.gameData.getCurrentPlayer())) { return false; }
@@ -159,6 +164,8 @@ export default class InputController {
       return allowedFunctionRules.functionNames.includes(functionName);
     } else if (allowedFunctionRules.type === "exclusion") {
       return !allowedFunctionRules.functionNames.includes(functionName);
+    } else {
+      return false;
     }
   };
 

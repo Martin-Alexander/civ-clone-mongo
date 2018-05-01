@@ -20,7 +20,7 @@ export default class GameDataController {
     this.replaceSquare(data.new_squares[0])
     if (data.new_squares[1]) {
       animationCallback(data, () => {
-        const newSquare = this.replaceSquare(data.new_squares[1])
+        this.replaceSquare(data.new_squares[1])
       });
     }
 

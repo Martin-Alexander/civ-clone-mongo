@@ -13,7 +13,7 @@ export default class Astar extends BoardMethods{
   readonly finishSquare: AStarSquare;
 
   constructor(squares: Square[], unit: Unit, startSquare: Square, finishSquare: Square) {
-    super()
+    super(AStarSquareCollection.generateFromGameSquares(squares))
 
     this.unit = unit;
     this.squares = AStarSquareCollection.generateFromGameSquares(squares, finishSquare);
@@ -21,7 +21,7 @@ export default class Astar extends BoardMethods{
     this.finishSquare = new AStarSquare(finishSquare, true);
   };
 
-  public find() {
+  public find(): Coords[] {
     // Since one of the condition of unreachability is that the square contains a unit, when a move
     // has the same destination and origin (i.e., there is no actual move), then the finish square
     // contains the unit that is doing the movement. So, in this case, we want to avoid returning an
@@ -32,7 +32,7 @@ export default class Astar extends BoardMethods{
     const openedSquares = new AStarSquareCollection([this.startSquare]);
     
     // Represents all explored squares
-    const closedSquares = new AStarSquareCollection();
+    const closedSquares = new AStarSquareCollection([]);
     
     this.startSquare.currentPathCost = 0;
     
@@ -68,6 +68,8 @@ export default class Astar extends BoardMethods{
         }
       });
     }
+
+    return [];
   };
 
 

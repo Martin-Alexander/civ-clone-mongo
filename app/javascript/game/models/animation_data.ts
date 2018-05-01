@@ -1,6 +1,5 @@
 import Unit from "./unit";
 import AnimationController from "../controllers/animation_controller";
-import Square from "./square";
 
 interface AnimationDataInitializationData {
   unit: Unit;

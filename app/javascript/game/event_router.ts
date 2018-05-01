@@ -41,11 +41,11 @@ export default class EventRouter {
     });
   };
 
-  private disableTextSelection(): void {
-    function disableselect(this: Document, event: Event): any { return false };
-    document.onselectstart = disableselect;
-    document.onmousedown = disableselect;
-  };
+  // private disableTextSelection(): void {
+  //   function disableselect(this: Document, event: Event): any { return false };
+  //   document.onselectstart = disableselect;
+  //   document.onmousedown = disableselect;
+  // };
 
   private initializeMouseDownEvent(): void {
     const self: EventRouter = this;
@@ -66,6 +66,8 @@ export default class EventRouter {
           self.mouse.right.down = true;
           break;
       }
+
+      return true;
     });
   };
 
@@ -91,6 +93,8 @@ export default class EventRouter {
           self.mouse.right.down = false;
           break;
       }
+
+      return true;
     });
   };
 
@@ -120,6 +124,8 @@ export default class EventRouter {
       if (self.mouse.right.down && !self.haveSameCoords(oldtileMousePosition, self.UI.tileMousePosition)) {
         self.inputController.pathUpdate();
       }
+
+      return true;
     });
   };
 
@@ -146,6 +152,8 @@ export default class EventRouter {
         self.UI.offset.y = (self.UI.offset.y / zoomSpeed) + 
           (self.mouse.centerRelativePosition.y / 11);
       }
+
+      return true;
     });
   }
   
@@ -202,7 +210,7 @@ export default class EventRouter {
     this.mouse.rawIsoPosition.y / this.UI.tileHeight > this.UI.size + 1;
   };
 
-  private directMapClick(event): boolean {
+  private directMapClick(event: any): boolean {
     return event.target.id === "react-user-interface";
   };
 

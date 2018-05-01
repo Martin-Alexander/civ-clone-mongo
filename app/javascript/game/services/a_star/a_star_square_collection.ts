@@ -95,7 +95,7 @@ export default class AStarSquareCollection {
   // Performs a lookup based on AStarSquare coordinates
   // Should only be used when a AStarSquareCollection is representing an entire board
   public findSquare(x: number, y: number): AStarSquare {
-    return this[y * (this.size + 1) + x];
+    return this.aStarSquares[y * (this.size + 1) + x];
   };
 
   // Adds a square to the collection

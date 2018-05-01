@@ -34,7 +34,8 @@ const App = {
     const networkController      = new NetworkController(turnTransitioner, gameDataController, animationController);
     const unitsController        = new UnitsController(UI, gameData, networkController)
     const inputController        = new InputController(UI, gameData, networkController, reactController, unitsController);
-    const eventRouter            = new EventRouter(UI, inputController);
+    // const eventRouter = new EventRouter(UI, inputController);
+    new EventRouter(UI, inputController);
 
     global.gameData = gameData;
     global.Rules = Rules;
