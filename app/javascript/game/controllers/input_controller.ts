@@ -1,5 +1,5 @@
 import ReachableSquares     from "./../services/a_star/calculations/reachable_squares";
-import { PathFinder }       from "./../services/a_star/path_finder";
+import PathFinder           from "./../services/a_star/path_finder";
 import UserInterface        from "./../user_interface";
 import NetworkController    from "./network_controller";
 import UnitsController      from "./units_controller";
