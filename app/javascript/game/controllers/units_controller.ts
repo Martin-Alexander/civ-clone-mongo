@@ -21,9 +21,8 @@ export default class UnitsController {
   };
 
   public move(): void {
-    this.destinationSquare = this.gameData.findSquare(this.UI.currentPath[this.UI.currentPath.length - 1]);
-  
     if (this.UI.currentPath.length > 1) { 
+      this.destinationSquare = this.gameData.findSquare(this.UI.currentPath[this.UI.currentPath.length - 1]);
       this.determineAndSendUnitCommand();
   
       this.UI.selection.structure = null;
