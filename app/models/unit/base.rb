@@ -3,9 +3,9 @@ module Unit
     include Mongoid::Document
     include CivCloneMongoModel
     
-    include UnitModules::Moving
-    include UnitModules::Validations
-    include UnitModules::Orders
+    include Modules::Moving
+    include Modules::Validations
+    include Modules::Orders
 
     embedded_in :square, class_name: "Square::Global"
 
