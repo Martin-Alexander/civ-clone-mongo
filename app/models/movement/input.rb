@@ -19,7 +19,9 @@ module Movement
     # Returns whether or not the immediate move can be executed
     def validate_immediate_turn_move
       @success = @validations.all? do |validation|
-        @unit.send(validation, @immediate_turn_move.atomic_moves)
+        validation_passed = @unit.send(validation, @immediate_turn_move)
+        puts validation unless validation_passed
+        validation_passed
       end
     end
     
@@ -63,13 +65,13 @@ module Movement
     def game
       @unit.square.game
     end
-    
+
     def build_immediate_turn_move_and_go_to_turn_moves
       results = ImmediateTurnMoveAndGoToTurnMoves.build(@unit, @atomic_moves)
-  
-      @immediate_turn_move = results.immediate_turn_move
-      @go_to_turn_moves = results.go_to_turn_moves
-      @remaining_moves = results.remaining_moves
+
+      @immediate_turn_move = results.immediate_turn_move # TurnMove
+      @go_to_turn_moves = results.go_to_turn_moves       # GoToTurnMove
+      @remaining_moves = results.remaining_moves         # Integer
     end
 
     def units_new_order
