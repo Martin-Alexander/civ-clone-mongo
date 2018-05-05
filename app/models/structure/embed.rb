@@ -41,32 +41,7 @@ module Structure
       # Given a unit type and list of properties, creates an embedded unit
       def create_structure(structure, *args)
         send(structure.to_s.pluralize.to_sym).create! args
-      end
-
-      def get_structure(type)
-        structures.find { |structure| structure.type == type }
-      end
-
-      # Duplicate of Square::Global#get_structure but respects ruby naming convention
-      def structure(type)
-        structures.find { |structure| structure.type == type }
-      end
-
-      def complete_structure?(type)
-        structures.any? do |structure| 
-          structure.type == type && structure.complete
-        end
-      end
-
-      def structure_status(type)
-        if get_structure(type) && get_structure(type).complete
-          "present"
-        elsif get_structure(type) && !get_structure(type).complete
-          "under_contruction"
-        else
-          "absent"
-        end
-      end    
+      end  
     end  
   end
 end
