@@ -9,6 +9,14 @@ module Unit
         @atomic_moves = atomic_moves
       end
 
+      def starting_square
+        @atomic_moves.first.from_square
+      end
+
+      def destination_square
+        @atomic_moves.last.to_square
+      end
+
       def total_move_cost
         @atomic_moves.map(&:cost).reduce(&:+)
       end

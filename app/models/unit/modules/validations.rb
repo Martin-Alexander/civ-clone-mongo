@@ -27,7 +27,7 @@ module Unit
 
       def last_square_is_mergable(turn_move)
         moving_unit = turn_move.unit
-        merge_unit = turn_move.atomic_moves.last.to_square.units.first
+        merge_unit = turn_move.destination_square.units.first
 
         merge_unit.combat? &&
         moving_unit.player_number == merge_unit.player_number &&
