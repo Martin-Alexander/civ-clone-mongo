@@ -18,7 +18,8 @@ module Unit
         end
       end
 
-      
+      # DEFAULT
+
       def are_free_of_units_except_for_final_square(turn_move)
         turn_move.atomic_moves[0...-1].all? do |move|
           move.to_square.units.empty?
@@ -26,14 +27,18 @@ module Unit
       end
 
       def last_square_is_mergable(turn_move)
-        moving_unit = turn_move.unit
-        merge_unit = turn_move.destination_square.units.first
+        moving_unit = turn_move.moving_unit
+        merge_unit = turn_move.destination_square.combat_unit
+        
+        merge_unit && moving_unit.same_player_as?(merge_unit) && moving_unit.same_type_as?(merge_unit)
+      end
 
-        merge_unit.combat? &&
-        moving_unit.player_number == merge_unit.player_number &&
-        moving_unit.type == merge_unit.type
-      rescue
-        false
+      def same_player_as?(other_unit)
+        player_number == other_unit.player_number
+      end
+
+      def same_type_as?(other_unit)
+        type == other_unit.type
       end
     end
   end

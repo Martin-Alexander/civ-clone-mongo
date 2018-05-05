@@ -17,6 +17,9 @@ module Unit
         @atomic_moves.last.to_square
       end
 
+      # It's more clear this way
+      def moving_unit; unit; end
+
       def total_move_cost
         @atomic_moves.map(&:cost).reduce(&:+)
       end
