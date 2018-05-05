@@ -97,7 +97,7 @@ export default class NetworkController {
   };
 
   public pieceMerge(pieceMergeData: any): void {
-    const payload: Payload = { method: "piece_move" };
+    const payload: Payload = { method: "piece_merge" };
     payload.data = pieceMergeData;
 
     this.send(payload);

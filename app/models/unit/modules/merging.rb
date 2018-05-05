@@ -10,7 +10,7 @@ module Unit
       end
 
       def merge(path)
-        Merging::Input.new(self, path, merge_validations).front_end_move_result
+        Unit::Merging::Input.new(self, path, merge_validations).front_end_move_result
       end
     end
   end
