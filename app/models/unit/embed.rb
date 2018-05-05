@@ -1,4 +1,4 @@
-module Units
+module Unit
   module Embed
     def self.included(base)
       base.extend(ClassMethods)
