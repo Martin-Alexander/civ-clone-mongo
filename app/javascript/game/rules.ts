@@ -1,7 +1,7 @@
 enum RulesOrderType {
-  action,
-  unit_state_transform,
-  construction
+  action = "action",
+  unit_state_transform = "unit_state_transform",
+  construction = "construction"
 }
 
 type UnitTypeLookup = {
@@ -50,7 +50,7 @@ interface RulesJSON {
 
 import Square from "./models/square";
 import Unit from "./models/unit";
-import { UnitType, TerrainType } from "./../enums/modules";
+import { UnitType, TerrainType, OrderType } from "./../enums/modules";
 
 declare var rawRulesJSON: string;
 
