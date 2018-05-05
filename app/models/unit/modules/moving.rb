@@ -8,7 +8,7 @@ module Unit
 
       # Default move validations
       def move_validations
-        [:are_adjacent, :are_free_of_units]
+        [:are_adjacent, :all_squares_are_free_of_enemy_units, :destination_square_is_free]
       end
 
       # Should be only move function

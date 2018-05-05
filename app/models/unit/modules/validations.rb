@@ -13,16 +13,24 @@ module Unit
       # All moves are to squares with no units
       def are_free_of_units(turn_move)
         turn_move.atomic_moves.all? do |move|
-          move.to_square.no_units? || 
+          move.to_square.no_units?
         end
       end
 
       # All moves are to squares with no units
       def all_squares_are_free_of_enemy_units(turn_move)
         turn_move.atomic_moves.all? do |move|
-          move.to_square.units.empty? || 
+          to_square = move.to_square
+          to_square.no_units? || to_square.dominant_unit.same_player_as?(turn_move.moving_unit)
         end
-      end      
+      end
+
+      # Either the square is empty, or it contains a complimentary combat type unit of the same player
+      def destination_square_is_free(turn_move)
+        turn_move.destination_square.no_units? ||
+        (turn_move.destination_square.dominant_unit.same_player_as?(turn_move.moving_unit) &&
+        turn_move.moving_unit.opposite_combat_type_as?(turn_move.destination_square.dominant_unit))
+      end
 
       # For the particular unit moving, all the terrain is passable
       def squares_are_all_passable(turn_move)
@@ -48,6 +56,14 @@ module Unit
 
       def same_type_as?(other_unit)
         type == other_unit.type
+      end
+
+      def same_combat_type_as?(other_unit)
+        (combat? && other_unit.combat?) || (worker? && other_unit.worker?)
+      end
+
+      def opposite_combat_type_as?(other_unit)
+        !same_combat_type_as?(other_unit)
       end
     end
   end
