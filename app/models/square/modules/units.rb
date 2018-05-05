@@ -19,7 +19,25 @@ module Square
       # Whether or not a worker unit is present
       def worker_unit?
         !worker_unit.nil?
-      end      
+      end
+      
+      # Whether or not a square has units
+      def no_units?
+        units.empty?
+      end
+
+      def has_units?
+        !no_units?
+      end
+
+      # Returns either the combat unit of the square, or, if there are not combat units it returns
+      # the worker unit. If there aren't any units it returns nil
+
+      # I'm hesitant about this method and it's name, but there are a lot of situations where I need
+      # something like it
+      def dominant_unit
+        combat_unit || worker_unit || nil
+      end
     end
   end
 end

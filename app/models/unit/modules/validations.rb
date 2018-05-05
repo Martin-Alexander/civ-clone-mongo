@@ -1,8 +1,8 @@
 module Unit
   module Modules
     module Validations
+      # These are all "stand-alone" validations can be be combined for each particular order and unit
 
-      # DEFAULT
       # All moves are to adjacent squares
       def are_adjacent(turn_move)
         turn_move.atomic_moves.all? do |move|
@@ -10,15 +10,24 @@ module Unit
         end
       end
 
-      # DEFAULT
       # All moves are to squares with no units
       def are_free_of_units(turn_move)
         turn_move.atomic_moves.all? do |move|
-          move.to_square.units.empty?
+          move.to_square.no_units? || 
         end
       end
 
-      # DEFAULT
+      # All moves are to squares with no units
+      def all_squares_are_free_of_enemy_units(turn_move)
+        turn_move.atomic_moves.all? do |move|
+          move.to_square.units.empty? || 
+        end
+      end      
+
+      # For the particular unit moving, all the terrain is passable
+      def squares_are_all_passable(turn_move)
+        # Can't test this since front-end prevents you from even issuing such an order
+      end
 
       def are_free_of_units_except_for_final_square(turn_move)
         turn_move.atomic_moves[0...-1].all? do |move|
