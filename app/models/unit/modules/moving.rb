@@ -7,14 +7,14 @@ module Unit
       end
 
       # Default move validations
-      def validations
+      def move_validations
         [:are_adjacent, :are_free_of_units]
       end
 
       # Should be only move function
       # TODO: Refactor this abomination
       def move(path)
-        Movement::Input.new(self, path, validations).front_end_move_result
+        Movement::Input.new(self, path, move_validations).front_end_move_result
       end
     end
   end
