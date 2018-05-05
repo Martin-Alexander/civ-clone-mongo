@@ -6,8 +6,8 @@ module Unit
         @path = coordinate_path
         @validations = validations
 
-        @atomic_moves = Movement::TurnMoveBuilder.build(@path, @unit, game)
-        @turn_move = Movement::TurnMove.new(@unit, @atomic_moves)
+        @atomic_moves = Unit::Movement::TurnMoveBuilder.build(@path, @unit, game)
+        @turn_move = Unit::Movement::TurnMove.new(@unit, @atomic_moves)
 
         @success = @validations.all? do |validation|
           @unit.send(validation, @turn_move)
