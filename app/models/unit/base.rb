@@ -39,5 +39,9 @@ module Unit
     def player
       square.game.player(player_number)
     end
+
+    # To be overridden by child classes
+    def combat?; false; end
+    def worker?; false; end
   end
 end

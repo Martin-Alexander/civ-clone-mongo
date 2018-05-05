@@ -4,8 +4,8 @@ module Unit
       1
     end
 
-    def combat?
-      false
+    def worker?
+      true
     end
 
     # Creates a structure object in the workers square
