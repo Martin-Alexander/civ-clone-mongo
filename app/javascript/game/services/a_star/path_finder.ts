@@ -5,7 +5,7 @@ import Unit from "../../models/unit";
 import Square from "../../models/square";
 
 export default class PathFinder {
-  public static fun(gameData: GameData, unit: Unit, destinationSquare: Square) {
+  public static run(gameData: GameData, unit: Unit, destinationSquare: Square) {
     const turnMoveCoordinates = TurnMoveFinder.run(gameData, unit, destinationSquare);
     return TotalPathFinder.run(gameData, unit, turnMoveCoordinates);
   }
