@@ -1,7 +1,7 @@
 module Square
   class Global < Base
-    include EmbedUnits
-    include EmbedStructures
+    include Unit::EmbedUnits
+    include Structure::EmbedStructures
 
     direct_children :units, :structures
 
