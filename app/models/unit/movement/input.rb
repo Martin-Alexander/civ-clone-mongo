@@ -19,10 +19,8 @@ module Unit
       
       # Returns whether or not the immediate move can be executed
       def validate_immediate_turn_move
-        @success = @validations.all? do |validation|
-          validation_passed = @unit.send(validation, @immediate_turn_move)
-          puts validation unless validation_passed
-          validation_passed
+        @success = @immediate_turn_move.atomic_moves.empty? || @validations.all? do |validation|
+          @unit.send(validation, @immediate_turn_move)
         end
       end
       
