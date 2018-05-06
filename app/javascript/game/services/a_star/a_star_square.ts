@@ -48,12 +48,21 @@ export default class AStarSquare {
   // Returns whether or not a given square is a valid pathfinding destination
   // For now it will just be a matter of terrain until non-move pathfinding is implemented (i.e., attcking and merging)
   public isUnsuitableForPathfinding(unit: Unit): boolean {
-    return !Rules.passableTerrain(unit, this.gameSquare) || !this.isFreeOfUnitsOrIsTheDestinationSquare();
+    return !Rules.passableTerrain(unit, this.gameSquare) || !this.isFreeOfUnitsOrIsTheDestinationSquare(unit);
   };
 
-  public isFreeOfUnitsOrIsTheDestinationSquare(): boolean {
-    return this.gameSquare.units.length === 0 || this.isDestinationSquare;
+  public isFreeOfUnitsOrIsTheDestinationSquare(movingUnit: Unit): boolean {
+    // return this.gameSquare.units.length === 0 || this.isDestinationSquare;
+    return this.isFreeOfEnemenyUnits(movingUnit) || this.isDestinationSquare;
   };
+
+  public isFreeOfEnemenyUnits(movingUnit: Unit): boolean {
+    return this.gameSquare.isFreeOfEnemyUnits(movingUnit);
+  }
+
+  public isEmpty(): boolean {
+    return this.gameSquare.isEmpty();
+  }
 
   // Returns whether or not a given square has the same coordinates
   // Workds with any object that has an `x` and `y` property

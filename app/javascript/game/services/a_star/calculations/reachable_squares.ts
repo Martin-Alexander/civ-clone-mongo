@@ -41,7 +41,7 @@ export default class ReachableSquares extends BoardMethods {
     const closedSquares    = new AStarSquareCollection([]);
   
     // This stores all squares that are reachable and is the ultimate product of this function
-    const reachableSquares = new AStarSquareCollection([]);
+    let reachableSquares = new AStarSquareCollection([]);
   
     // Calculates how many moves the unit has for this algorithm to spend looking for reachable
     // squares
@@ -78,6 +78,8 @@ export default class ReachableSquares extends BoardMethods {
       });
     }
 
+    reachableSquares = this.pruneReachableSquares(reachableSquares);
+
     // Once all reachable squares have been explored transform 
     return this.transformToCoordinates(reachableSquares);
   }
@@ -90,5 +92,13 @@ export default class ReachableSquares extends BoardMethods {
   // reaching it
   private transformToCoordinates(squares: AStarSquareCollection): ReachableSquaresResults[] {
     return squares.aStarSquares.map(square => ({ x: square.x, y: square.y, moveToCost: square.currentPathCost }));
+  };
+
+  private pruneReachableSquares(squares: AStarSquareCollection): AStarSquareCollection {
+    const prunedAStarSquares = squares.aStarSquares.filter((aStarSquare) => {
+      return aStarSquare.isEmpty() || aStarSquare.isDestinationSquare;
+    });
+
+    return(new AStarSquareCollection(prunedAStarSquares))
   };
 }

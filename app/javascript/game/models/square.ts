@@ -109,5 +109,15 @@ export default class Square {
 
   public hasCivilianUnit(): boolean {
     return this.units.some(unit => unit.type === UnitType.worker);
-  };      
+  };
+
+  public isFreeOfEnemyUnits(movingUnit: Unit): boolean {
+    return this.units.every((unit: Unit): boolean => {
+      return unit.player_number === movingUnit.player_number;
+    });
+  };
+
+  public isEmpty(): boolean {
+    return this.units.length === 0;
+  }
 }
