@@ -84,7 +84,20 @@ export default class Square {
       context.fillStyle = "rgba(255, 255, 255, 0.8)";
       context.fill();
     }
+
+    // If there are more than one unit in this square draw the multiple unit indicator
+    if (this.units.length > 1) { this.renderUnitStackIndicator(context, UI); }
   };
+
+  public renderUnitStackIndicator(context: CanvasRenderingContext2D, UI: UserInterface): void {
+    const yOffset = UI.tileHeight / 15;
+    const xOffset = 0;
+    context.beginPath();
+    context.ellipse(0 + xOffset, UI.tileHeight / 2 + yOffset, UI.tileWidth / 4, UI.tileHeight / 4,
+      0, Math.PI * 0, Math.PI * 2);
+    context.fillStyle = "grey";
+    context.fill();
+  }
 
   public hasStructure(structureName: StructureType): boolean {
     return this.structures.some(structure => structure.type === structureName);
