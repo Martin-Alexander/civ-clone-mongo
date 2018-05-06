@@ -27,9 +27,10 @@ module Unit
 
       # Either the square is empty, or it contains a complimentary combat type unit of the same player
       def destination_square_is_free(turn_move)
-        turn_move.destination_square.no_units? ||
-        (turn_move.destination_square.dominant_unit.same_player_as?(turn_move.moving_unit) &&
-        turn_move.moving_unit.opposite_combat_type_as?(turn_move.destination_square.dominant_unit))
+        turn_move.destination_square.no_units? || (
+          turn_move.destination_square.dominant_unit.same_player_as?(turn_move.moving_unit) &&
+          turn_move.destination_square.no_units_of_same_combat_type?(turn_move.moving_unit)
+        )
       end
 
       # For the particular unit moving, all the terrain is passable

@@ -30,6 +30,16 @@ module Square
         !no_units?
       end
 
+      def any_units_of_same_combat_type?(other_unit)
+        units.any? do |square_unit|
+          square_unit.same_combat_type_as?(other_unit)
+        end
+      end
+
+      def no_units_of_same_combat_type?(other_unit)
+        !any_units_of_same_combat_type?(other_unit)
+      end
+
       # Returns either the combat unit of the square, or, if there are not combat units it returns
       # the worker unit. If there aren't any units it returns nil
 
