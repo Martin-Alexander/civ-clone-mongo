@@ -2,6 +2,7 @@ import Square from "./../models/square";
 import MoveAnimation from "./../models/move_animation";
 import GameRenderer from "../views/game_renderer";
 import AnimationData from "../models/animation_data";
+import Unit from "../models/unit";
 
 export default class AnimationController {
   readonly renderer: GameRenderer;
@@ -13,11 +14,11 @@ export default class AnimationController {
   public pieceMove(data: any, callback: animationCallbackFunction): boolean {
     if (data.path.length < 2) { return false; }
 
-    // const fromSquare = new Square(data.new_squares[0]);
-    const toSquare = new Square(data.new_squares[1]);
+    const fromSquare = new Square(data.new_squares[0]);
+    // const toSquare = new Square(data.new_squares[1]);
 
     const animationData = new AnimationData({
-        unit: toSquare.units[0],
+        unit: new Unit(data.moved_unit, fromSquare),
         path: data.path,
         index: 0,
         animationController: this

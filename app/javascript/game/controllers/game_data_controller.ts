@@ -2,6 +2,7 @@ import Square from "./../models/square";
 import GameData from "./../game_data";
 import UserInterface from "./../user_interface";
 import ReactController from "./react_controller";
+import AnimationData from "../models/animation_data";
 
 export default class GameDataController {
   readonly gameData: GameData;
@@ -14,7 +15,7 @@ export default class GameDataController {
     this.reactController = reactController;
   };
   
-  public pieceMove(data: any, animationCallback: ((data: any, callback: animationCallbackFunction) => void)): boolean {
+  public pieceMove(data: any, animationCallback: ((data: AnimationData, callback: animationCallbackFunction) => void)): boolean {
     if (!data.success) { return false; }
   
     this.replaceSquare(data.new_squares[0])
