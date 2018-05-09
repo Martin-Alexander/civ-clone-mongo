@@ -33,6 +33,10 @@ module Unit
         )
       end
 
+      def are_free_from_zone_of_control(turn_move)
+        turn_move.atomic_moves.all?(&:free_of_zone_control?)
+      end
+
       # For the particular unit moving, all the terrain is passable
       def squares_are_all_passable(turn_move)
         # Can't test this since front-end prevents you from even issuing such an order
