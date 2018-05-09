@@ -18,6 +18,10 @@ module Unit
         [{ x: from_square.x, y: from_square.y }, { x: to_square.x, y: to_square.y }]
       end
 
+      def free_of_zone_control?
+        Square::Modules::ZoneOfControl::Control.free?(@unit, @from_square, @to_square)
+      end
+
       private
 
       def connected_by_a_road?
