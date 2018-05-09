@@ -29,6 +29,7 @@ module Square
           evaluate_control
         end
         
+        # TODO: FIX THIS USING DIPLOMACY
         def any_player_other_than?(player)
           @players.length > 1 || (@players.length == 1 && @players.first != player)
         end
