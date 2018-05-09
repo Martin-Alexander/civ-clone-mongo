@@ -25,6 +25,10 @@ module Square
       end
     end
 
+    def neighbours_and_self(radius = 1)
+      neighbours(radius) + [self]
+    end
+
     def coordinates
       { x: x, y: y }
     end    
