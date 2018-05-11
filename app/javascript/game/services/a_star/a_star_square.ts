@@ -2,6 +2,7 @@ import Square from "../../models/square";
 import Rules from "../../rules";
 import Unit from "../../models/unit";
 import { StructureType } from "../../../enums/modules"
+import SquareControl from "../square_control";
 
 export default class AStarSquare {
   readonly x: number;
@@ -77,7 +78,10 @@ export default class AStarSquare {
       return unit.moves;
   
     // You cannot move to an unreachable square
-    } else if (this.isUnsuitableForPathfinding(unit)) {
+    } else if (
+      this.isUnsuitableForPathfinding(unit) ||
+      this.isUnreachableDueToZoneOfControl(unit, fromSquare)
+    ) {
       return AStarSquare.infinity();
   
     // Is connected to the from square by a road
@@ -109,4 +113,8 @@ export default class AStarSquare {
   public isConnectedToByARoad(otherSquare: AStarSquare): boolean {
     return this.gameSquare.hasCompletedStructure(StructureType.road) && otherSquare.gameSquare.hasCompletedStructure(StructureType.road)
   };
+
+  private isUnreachableDueToZoneOfControl(unit: Unit, fromSquare: AStarSquare): boolean {
+    return !SquareControl.free(unit, fromSquare.gameSquare, this.gameSquare);
+  }
 };
