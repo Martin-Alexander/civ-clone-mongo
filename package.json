@@ -2,7 +2,7 @@
   "name": "civ-clone-mongo",
   "private": true,
   "dependencies": {
-    "@rails/webpacker": "^3.0.2",
+    "@rails/webpacker": "^3.5.3",
     "@types/rails-actioncable": "^0.0.21",
     "@types/react": "^16.0.41",
     "@types/react-dom": "^16.0.4",
