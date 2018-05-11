@@ -18,7 +18,7 @@ export default class MenuBar extends React.Component {
       <div style={menuBarStyle}>
         <Resources 
           militaryCount={this.props.currentPlayer.military_count}
-          civilianCount={this.props.currentPlayer.civilian_count_count}
+          civilianCount={this.props.currentPlayer.civilian_count}
           supply={this.props.currentPlayer.supply}
           growth={this.props.currentPlayer.growth}
         />
