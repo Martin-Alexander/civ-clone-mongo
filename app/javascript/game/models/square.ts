@@ -121,6 +121,16 @@ export default class Square {
     return this.units.find(unit => unit.type === UnitType.worker);
   };
 
+  public getDominantUnit(): Unit | undefined {
+    if (this.hasMilitaryUnit()) {
+      return this.getMilitaryUnit();
+    } else if (this.hasCivilianUnit()) {
+      return this.getCivilianUnit();
+    } else {
+      return undefined;
+    }
+  }
+
   public hasMilitaryUnit(): boolean {
     return this.units.some(unit => unit.type !== UnitType.worker);
   };
