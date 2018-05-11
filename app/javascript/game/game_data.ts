@@ -68,5 +68,34 @@ export default class GameData {
     this.state = rawGameData.state;
 
     this.initialize();
+  };
+
+  public neighbours(square: Square, radius: number = 1): Square[] {
+    const xRange = Array.from(new Array(radius * 2 + 1), (x, i) => i + -radius);
+    const yRange = Array.from(new Array(radius * 2 + 1), (x, i) => i + -radius);
+    const neighbourSquares: Square[] = [];
+  
+    xRange.forEach((x) => {
+      yRange.forEach((y) => {
+        if (!(
+          (x === 0 && y === 0)     ||
+          x + square.x < 0         ||
+          y + square.y < 0         ||
+          x + square.x > this.size ||
+          y + square.y > this.size
+        )) {
+          neighbourSquares.push(this.findSquare(x + square.x, y + square.y));
+        }
+      });
+    });
+
+    return neighbourSquares;
+  };
+
+
+  public neighboursAndSelf(square: Square, radius: number = 1): Square[] {
+    const neighbours = this.neighbours(square, radius);
+    neighbours.push(square);
+    return neighbours;
   }
 }
