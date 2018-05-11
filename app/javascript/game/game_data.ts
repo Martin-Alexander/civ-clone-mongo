@@ -17,7 +17,7 @@ export default class GameData {
 
     this.id = rawGameData.id;
     this.size = rawGameData.size;
-    this.squares = rawGameData.squares.map(squareData => new Square(squareData));
+    this.squares = rawGameData.squares.map(squareData => new Square(squareData, this));
     this.players = rawGameData.players;
     this.state = rawGameData.state;
   };
@@ -63,7 +63,7 @@ export default class GameData {
   };
 
   public newGameData(rawGameData: RawGameData) {
-    this.squares = rawGameData.squares.map(squareData => new Square(squareData));
+    this.squares = rawGameData.squares.map(squareData => new Square(squareData, this));
     this.players = rawGameData.players;
     this.state = rawGameData.state;
 

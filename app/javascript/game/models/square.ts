@@ -2,6 +2,7 @@ import Unit from "./unit";
 import Structure from "./structure";
 import UserInterface from "./../user_interface";
 import { UnitType } from "./../../enums/modules"
+import GameData from "../game_data";
 
 
 export default class Square {
@@ -11,10 +12,14 @@ export default class Square {
   readonly x: number;
   readonly y: number;
 
+  readonly game: GameData;
+
   public units: Unit[];
   public structures: Structure[];
 
-  public constructor(rawSquareData: RawSquareData) {
+  public constructor(rawSquareData: RawSquareData, game: GameData) {
+    this.game = game;
+
     this.units = [];
     this.structures = []
 
