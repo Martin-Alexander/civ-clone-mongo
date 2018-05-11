@@ -1,11 +1,12 @@
 import Square from "./models/square";
 import UserInterface from "./user_interface";
+import Player from "./models/player";
 
 export default class GameData {
   readonly id: string;
   readonly size: number;
   
-  public players: any[];
+  public players: Player[];
   public UI: UserInterface;
   public squares: Square[];
   public state: string;
@@ -18,19 +19,28 @@ export default class GameData {
     this.id = rawGameData.id;
     this.size = rawGameData.size;
     this.squares = rawGameData.squares.map(squareData => new Square(squareData, this));
-    this.players = rawGameData.players;
+    this.players = []
+    
+    rawGameData.players.forEach((rawPlayerData) => {
+      this.players.push(new Player(rawPlayerData))
+    });
+
     this.state = rawGameData.state;
   };
 
   // This should probably be deleted
   public initialize(): void {
-    this.UI.ready = this.getCurrentPlayer().turn_over;
+    this.UI.ready = this.getCurrentPlayer().turnOver;
     this.UI.size = this.size;
   };
 
-  public getCurrentPlayer(): any {
-    return this.players.find(player => player.current_player);
+  public getCurrentPlayer(): Player {
+    return this.players.find(player => player.currentPlayer);
   };
+
+  public getPlayer(number: number): Player {
+    return this.players.find(player => player.number === number);
+  }
 
   public square(col: Coords | number, row?: number): Square {
     let square: Square;
@@ -48,11 +58,11 @@ export default class GameData {
     return this.square(col, row);
   };
 
-  public updatePlayersReady(playersReady: any[]): void {
+  public updatePlayersReady(playersReady: Player[]): void {
     this.players.forEach((gameDataPlayers) => {
       playersReady.forEach((players) => {
         if (gameDataPlayers.number === players.number) {
-          gameDataPlayers.turn_over = players.turn_over;
+          gameDataPlayers.turnOver = players.turnOver;
         }
       });
     });
@@ -64,7 +74,7 @@ export default class GameData {
 
   public newGameData(rawGameData: RawGameData) {
     this.squares = rawGameData.squares.map(squareData => new Square(squareData, this));
-    this.players = rawGameData.players;
+    this.players = rawGameData.players.map(playerData => new Player(playerData));
     this.state = rawGameData.state;
 
     this.initialize();
