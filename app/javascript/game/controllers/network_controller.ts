@@ -80,7 +80,15 @@ export default class NetworkController {
             this.gameDataController.giveOrder(data.new_square);
             break;
           case "player_ready":
-            this.gameDataController.updatePlayersReady(data.players_ready);
+            const playerUpdateInformationArray: PlayerReadyInformation[] = 
+              data.players_ready.map((rawPlayeUpdateInformation) => {
+                return {
+                  playerNumber: rawPlayeUpdateInformation.number,
+                  newTurnOverStatus: rawPlayeUpdateInformation.turn_over
+                }
+              })
+            
+            this.gameDataController.updatePlayersReady(playerUpdateInformationArray);
             break;
           default:
             break;

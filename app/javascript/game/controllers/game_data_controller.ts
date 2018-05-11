@@ -28,8 +28,8 @@ export default class GameDataController {
     return true;
   };
 
-  public updatePlayersReady(playersReady: any[]): void {
-    this.gameData.updatePlayersReady(playersReady);
+  public updatePlayersReady(playerReadyInformation: PlayerReadyInformation[]): void {
+    this.gameData.updatePlayersReady(playerReadyInformation);
     this.reactController.updateGameData();
   };
 

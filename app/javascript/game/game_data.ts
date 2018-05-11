@@ -58,11 +58,11 @@ export default class GameData {
     return this.square(col, row);
   };
 
-  public updatePlayersReady(playersReady: Player[]): void {
-    this.players.forEach((gameDataPlayers) => {
-      playersReady.forEach((players) => {
-        if (gameDataPlayers.number === players.number) {
-          gameDataPlayers.turnOver = players.turnOver;
+  public updatePlayersReady(playerReadyInformation: PlayerReadyInformation[]): void {
+    this.players.forEach((player) => {
+      playerReadyInformation.forEach((playerUpdate) => {
+        if (player.number === playerUpdate.playerNumber) {
+          player.turnOver = playerUpdate.newTurnOverStatus;
         }
       });
     });
