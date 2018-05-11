@@ -39,7 +39,7 @@ export default class GameDataController {
   };
 
   public replaceSquare(square: Square): Square {
-    const newSquare = new Square(square);
+    const newSquare = new Square(square, this.gameData);
     this.gameData.replaceSquare(newSquare);
   
     return newSquare;
