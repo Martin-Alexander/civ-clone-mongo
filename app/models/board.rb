@@ -2,8 +2,8 @@ class Board
   attr_reader :squares, :size
 
   def initialize(size)
-    @size = size
-    @squares = []
+    # @size = size
+    # @squares = []
 
     (0..size).each do |y_coord|
       (0..size).each do |x_coord|
@@ -170,32 +170,24 @@ class Board
     (a.desirability(3) - b.desirability(3)).abs
   end
 
-  def distance(a, b)
-    (a.x - b.x).abs + (a.y - b.y).abs
-  end
+  # def distance(a, b)
+  #   (a.x - b.x).abs + (a.y - b.y).abs
+  # end
 
-  def find_square(col, row = false)
-    if col.respond_to?(:keys)
-      row = col[:y] || col["y"]
-      col = col[:x] || col["x"]
-    end
-    if row && (row > size || col > size)
-      raise ArgumentError, "Invalid row #{row} or col #{col} for board size of #{size}"
-    end
-    row ? squares[row * (size + 1) + col] : squares[col.to_i]
-  end
+  # def find_square(col, row = false)
+  #   if col.respond_to?(:keys)
+  #     row = col[:y] || col["y"]
+  #     col = col[:x] || col["x"]
+  #   end
+  #   if row && (row > size || col > size)
+  #     raise ArgumentError, "Invalid row #{row} or col #{col} for board size of #{size}"
+  #   end
+  #   row ? squares[row * (size + 1) + col] : squares[col.to_i]
+  # end
 
-  def squares_within(radius)
-    squares.select do |square|
-      (square.x - size / 2).abs <= radius && (square.y - size / 2).abs <= radius
-    end
-  end
-
-  def to_s
-    "<Board: size: #{@size}>"
-  end
-
-  def inspect
-    "<Board: size: #{@size}>"
-  end
+  # def squares_within(radius)
+  #   squares.select do |square|
+  #     (square.x - size / 2).abs <= radius && (square.y - size / 2).abs <= radius
+  #   end
+  # end
 end

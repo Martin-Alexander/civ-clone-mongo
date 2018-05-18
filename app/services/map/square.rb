@@ -1,9 +1,11 @@
 module Map
   class Square
-    def initialize(map, options = {})
+    attr_reader :x, :y, :terrain
+
+    def initialize(map, x, y, options = {})
       @map = map
-      @x = options[:x]
-      @y = options[:y]
+      @x = x
+      @y = y
       @terrain = options[:terrain] || "grass"
     end
 
