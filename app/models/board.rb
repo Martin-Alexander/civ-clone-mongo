@@ -2,8 +2,8 @@ class Board
   attr_reader :squares, :size
 
   def initialize(size)
-    # @size = size
-    # @squares = []
+    @size = size
+    @squares = []
 
     (0..size).each do |y_coord|
       (0..size).each do |x_coord|
@@ -170,24 +170,87 @@ class Board
     (a.desirability(3) - b.desirability(3)).abs
   end
 
-  # def distance(a, b)
-  #   (a.x - b.x).abs + (a.y - b.y).abs
-  # end
+  def distance(a, b)
+    (a.x - b.x).abs + (a.y - b.y).abs
+  end
 
-  # def find_square(col, row = false)
-  #   if col.respond_to?(:keys)
-  #     row = col[:y] || col["y"]
-  #     col = col[:x] || col["x"]
-  #   end
-  #   if row && (row > size || col > size)
-  #     raise ArgumentError, "Invalid row #{row} or col #{col} for board size of #{size}"
-  #   end
-  #   row ? squares[row * (size + 1) + col] : squares[col.to_i]
-  # end
+  def find_square(col, row = false)
+    if col.respond_to?(:keys)
+      row = col[:y] || col["y"]
+      col = col[:x] || col["x"]
+    end
+    if row && (row > size || col > size)
+      raise ArgumentError, "Invalid row #{row} or col #{col} for board size of #{size}"
+    end
+    row ? squares[row * (size + 1) + col] : squares[col.to_i]
+  end
 
-  # def squares_within(radius)
-  #   squares.select do |square|
-  #     (square.x - size / 2).abs <= radius && (square.y - size / 2).abs <= radius
-  #   end
-  # end
+  def squares_within(radius)
+    squares.select do |square|
+      (square.x - size / 2).abs <= radius && (square.y - size / 2).abs <= radius
+    end
+  end
+
+  def to_s
+    "<Board: size: #{@size}>"
+  end
+
+  def inspect
+    "<Board: size: #{@size}>"
+  end
+
+  class Square
+    attr_accessor :x, :y, :terrain, :board
+
+    def initialize(x, y, board)
+      @board = board
+      @x = x
+      @y = y
+      @terrain = "grass"
+    end
+
+    def neighbours(radius = 1)
+      (-radius..radius).each_with_object([]) do |x_diff, array|
+        (-radius..radius).each do |y_diff|
+          unless (x_diff.zero? && y_diff.zero?) ||
+          x_diff + x < 0 || y_diff + y < 0 || 
+          x_diff + x > board.size ||
+          y_diff + y > board.size
+            array << board.find_square(x_diff + x, y_diff + y)
+          end
+        end
+      end
+    end
+
+    def neighbouring_terrain(terrain, radius = 1)
+      neighbours(radius).select { |square| square.terrain == terrain }.length
+    end
+
+    def desirability(radius)
+      running_total = 0
+      neighbours(radius).each do |neighbour|
+        running_total += desirability_lookup(neighbour.terrain)
+      end
+
+      (running_total / 1000) * 1000
+    end
+
+    def desirability_lookup(terrain)
+      {
+        grass: 175,
+        plains: 150,
+        desert: 10,
+        water: 50,
+        mountains: 10
+      }[terrain.to_sym]
+    end
+
+    def to_s
+      "<Square: x: #{@x}, y: #{@y}, terrain: #{@terrain}>"
+    end
+
+    def inspect
+      "<Square: x: #{@x}, y: #{@y}, terrain: #{@terrain}>"
+    end
+  end
 end
