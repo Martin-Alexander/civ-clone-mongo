@@ -16,7 +16,7 @@ module Map
       end
     
       def pass?(square)
-        square.terrain.send(@comparison, @terrain) && rand(@chance).zero?
+        square.terrain.send(@comparison, @terrain) && rand < @chance 
       end
     end
   end

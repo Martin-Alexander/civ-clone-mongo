@@ -8,7 +8,7 @@ module Map
       coverage = if options[:coverage].is_a?(Hash)
         ((options[:coverage][:percent] / 100.0) * self.count).floor
       else
-        options[:coverage]
+        options[:coverage] == :all ? self.count : options[:coverage]
       end
 
       condition = TerrainGenerationCondition.new
@@ -34,7 +34,13 @@ module Map
       end
   
       def pass?(square)
-        @rules.all? { |rule| rule.pass?(square) || rule.optional? }
+        # Do all non-optionals pass?
+        @rules.all? { |rule| rule.pass?(square) || rule.optional? } &&
+        # Do any optionals pass?
+        (
+          @rules.any? { |rule| rule.pass?(square) && rule.optional? } ||
+          @rules.count(&:optional?).zero?
+        )
       end
     end
   end

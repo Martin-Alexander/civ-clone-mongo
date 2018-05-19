@@ -17,7 +17,7 @@ module Map
     
       def pass?(square)
         square.neighbours_by_terrain(@terrain, @within).count.send(@comparison, @quantity) &&
-        rand(@chance).zero?
+        rand < @chance
       end
     end
   end
