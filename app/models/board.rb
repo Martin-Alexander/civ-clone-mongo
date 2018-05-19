@@ -80,6 +80,7 @@ class Board
     ((size / 2)..(size)).to_a.sample.times do
       square = squares.sample
       if square.terrain == "grass" &&
+        # s.has :water, within: 3, wieght: 1
       (square.neighbouring_terrain("water", 3).zero? || rand(2).zero?) &&
       (square.neighbouring_terrain("water", 2).zero? || rand(4).zero?) &&
       (square.neighbouring_terrain("water").zero? || rand(8).zero?)
