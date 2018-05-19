@@ -1,7 +1,7 @@
 module Map
   module TerrainGenerationRules
-    class TerraianGenerationRuleBase
-      class TerraianGenerationRuleError < Execption; end
+    class TerrainGenerationRuleBase
+      class TerrainGenerationRuleError < Exception; end
     
       COMPARISON_LOOKUP = {
         at_least: :>=,

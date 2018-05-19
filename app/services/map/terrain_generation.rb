@@ -10,7 +10,7 @@ module Map
   
       density.times do
         selected_square = squares.sample
-        selected_square.terrain = terrain if selected_square.pass?(sprinkle_condition)
+        selected_square.terrain = terrain if terrain_generation_condition.pass?(selected_square)
       end
     end
   
@@ -20,11 +20,11 @@ module Map
       end
   
       def has(params = {})
-        @rules << HasNeighboursRule.new(params)
+        @rules << TerrainGenerationRules::HasNeighboursRule.new(params)
       end
   
       def is(params = {})
-        @rules << IsRule.new(terrain)
+        @rules << TerrainGenerationRules::IsRule.new(params)
       end
   
       def pass?(square)

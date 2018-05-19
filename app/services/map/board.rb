@@ -9,6 +9,8 @@ module Map
     def initialize(options = {})
       @size = options[:size] || raise("Must provide board size")
       @squares = generate_squares
+
+      options[:template].run(self)
     end
   end
 end

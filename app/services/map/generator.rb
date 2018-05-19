@@ -2,7 +2,8 @@ module Map
   class Generator
     module ClassMethods
       def run(options = {})
-        Board.new(size: options[:size])
+        template = options[:template] || Templates::Standard
+        board = Board.new(size: options[:size], template: template)
       end
     end
 
