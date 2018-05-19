@@ -21,7 +21,7 @@ module Map
 
     def neighbours_by_terrain(comparison_terrain, radius = 1)
       neighbours(radius).select do |neighbour|
-        neighbour.terrain?(comparison_terrain)
+        neighbour.terrain == comparison_terrain
       end
     end
 

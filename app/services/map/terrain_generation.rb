@@ -2,8 +2,8 @@ module Map
   module TerrainGeneration
     # Yeah, I know this is massively overengineered
     
-    def generate_terrain(terrain, options)
-      # squares.generate_terrain "water", coverage: { percent: 50 }, distinct: true
+    def generate(terrain, options)
+      # squares.generate "water", coverage: { percent: 50 }, distinct: true
 
       coverage = if options[:coverage].is_a?(Hash)
         ((options[:coverage][:percent] / 100.0) * self.count).floor
