@@ -2,8 +2,7 @@ module Map
   class Generator
     module ClassMethods
       def run(options = {})
-        puts "TODO"
-        puts options
+        Board.new(size: options[:size])
       end
     end
 
