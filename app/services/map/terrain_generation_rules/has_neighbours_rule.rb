@@ -4,9 +4,7 @@ module Map
       # has at_least: 1, terrain: "grass", within: 3, required: true
     
       def initialize(params = {})
-        @terrain = params[:terrain] || raise(
-          TerraianGenerationRuleError, "must provide `terrain`"
-        )
+        @terrain = params[:terrain] || raise(TerraianGenerationRuleError, "must provide `terrain`")
         @within = params[:within] || 1
         @quantity = params[:quantity] || 0
         @chance = params[:chance] || 1
