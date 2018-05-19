@@ -2,7 +2,6 @@ module Map
   class Board
     include GeneralHelperMethods
     include InitializationHelperMethods
-    include TerrainGeneration
 
     attr_reader :squares, :size
 

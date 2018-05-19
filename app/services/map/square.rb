@@ -39,9 +39,7 @@ module Map
       "<Map::Square: x: #{@x}, y: #{@y}, terrain: #{@terrain}>"
     end
 
-    def inspect
-      to_s
-    end
+    def inspect; to_s; end
 
     private
 

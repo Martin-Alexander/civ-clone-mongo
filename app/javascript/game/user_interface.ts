@@ -19,8 +19,8 @@ export default class UserInterface {
   public reachableSquares: Square[];
 
   public constructor() {
-    this.tileHeight = 40;
-    this.tileWidth = 80;
+    this.tileHeight = 30;
+    this.tileWidth = this.tileHeight * 2;
     this.offset = { x: 0, y: 0 };
     this.tileMousePosition = { x: 0, y: 0 };
     this.selection = {

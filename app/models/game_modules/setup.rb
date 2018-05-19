@@ -21,15 +21,16 @@ module GameModules
 
     # Generates global squares based on terrain generation of the Board class
     def generate_global_squares(board)
+      tmp_squares = []
       board.squares.each do |square|
-        squares << Square::Global.new(
+        tmp_squares << Square::Global.new(
           x: square.x,
           y: square.y,
           terrain: square.terrain
         )
       end
 
-      save
+      self.squares = tmp_squares
     end
 
     # Attempts to set starting player locations as fairly as possible
