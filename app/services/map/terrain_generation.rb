@@ -5,28 +5,18 @@ module Map
     def generate(terrain, options)
       # squares.generate "water", coverage: { percent: 50 }, distinct: true
 
-      @passes = options[:passes] || 1
-
       coverage = if options[:coverage].is_a?(Hash)
         ((options[:coverage][:percent] / 100.0) * self.count).floor
       else
         options[:coverage]
       end
 
-      terrain_generation_condition = TerrainGenerationCondition.new
-      yield terrain_generation_condition
+      condition = TerrainGenerationCondition.new
+      yield condition
 
-      @passes.times do
-        if options[:distinct] || options[:distinct].nil?
-          self.sample(coverage).each do |square|
-            square.terrain = terrain if terrain_generation_condition.pass?(square)
-          end
-        else
-          coverage.times do
-            square = self.sample
-            square.terrain = terrain if terrain_generation_condition.pass?(square)
-          end
-        end
+      (options[:passes] || 1).times do
+        squares = options[:distinct] ? self.sample(coverage) : coverage.times.map { self.sample }
+        squares.each { |square| square.terrain = terrain if condition.pass?(square) }
       end
     end
   
