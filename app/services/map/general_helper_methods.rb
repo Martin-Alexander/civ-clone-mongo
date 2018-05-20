@@ -14,9 +14,11 @@ module Map
 
     # Returns all squares a given distance from the center of the map
     def squares_within(radius)
-      squares.select do |square|
-        (square.x - size / 2).abs <= radius && (square.y - size / 2).abs <= radius
-      end
+      SquareCollection.new(
+        squares.select do |square|
+          (square.x - size / 2).abs <= radius && (square.y - size / 2).abs <= radius
+        end
+      )
     end    
 
     # Manhattan distance between to squares
