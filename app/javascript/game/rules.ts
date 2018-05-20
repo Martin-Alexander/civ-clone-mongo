@@ -63,7 +63,6 @@ export default class Rules {
 
   // For a given unit and square returns whether or not the terrain of the square prohibits entery
   static passableTerrain(unit: Unit, square: Square): boolean {
-    console.log()
     const impassableTerrain: TerrainType[] = [TerrainType.mountains, TerrainType.water];
     return !impassableTerrain.includes(square.terrain)
   }

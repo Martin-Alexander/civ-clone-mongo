@@ -117,4 +117,8 @@ export default class AStarSquare {
   private isUnreachableDueToZoneOfControl(unit: Unit, fromSquare: AStarSquare): boolean {
     return !SquareControl.free(unit, fromSquare.gameSquare, this.gameSquare);
   }
+
+  public isMoveable(unit: Unit): boolean {
+    return this.gameSquare.isMoveable(unit);
+  }
 };

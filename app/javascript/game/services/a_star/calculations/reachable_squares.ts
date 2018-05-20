@@ -96,7 +96,7 @@ export default class ReachableSquares extends BoardMethods {
 
   private pruneReachableSquares(squares: AStarSquareCollection): AStarSquareCollection {
     const prunedAStarSquares = squares.aStarSquares.filter((aStarSquare) => {
-      return aStarSquare.isEmpty() || aStarSquare.isDestinationSquare;
+      return (aStarSquare.isMoveable(this.unit) || aStarSquare.isDestinationSquare);
     });
 
     return(new AStarSquareCollection(prunedAStarSquares))

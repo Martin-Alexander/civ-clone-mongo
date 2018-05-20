@@ -148,4 +148,13 @@ export default class Square {
   public isEmpty(): boolean {
     return this.units.length === 0;
   }
+
+  public isMoveable(unit: Unit): boolean {
+    return (
+      this.isEmpty() ||
+      unit.player_number == this.getDominantUnit().player_number
+    ) &&
+    (unit.type == UnitType.worker && !this.hasCivilianUnit()) ||
+    (unit.type == UnitType.infantry && !this.hasMilitaryUnit())
+  }
 }
