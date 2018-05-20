@@ -79,8 +79,10 @@ export default class EventRouter {
   
       switch (event.button) {
         case 0: // left
-          if (self.mouse.preDragDistance < 10 && self.directMapClick(event)) {
-            self.inputController.selectSquare();
+          if (self.directMapClick(event)) {
+            if (self.mouse.preDragDistance <= 2) {
+              self.inputController.selectSquare();
+            }
           }
           self.mouse.preDragDistance = 0;
           self.mouse.left.down = false; 
