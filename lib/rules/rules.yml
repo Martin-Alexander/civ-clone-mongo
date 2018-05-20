@@ -1,5 +1,5 @@
 supply_per_city_size: 2
-production_levels: 1
+production_levels: 5
 turns_for_growth: 1
 min_city_distance: 4
 space_per_player: 500
