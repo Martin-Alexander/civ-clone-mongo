@@ -7,7 +7,12 @@ module Map
         @terrain = params[:terrain] || raise(TerrainGenerationRuleError, "must provide `terrain`")
         @within = params[:within] || 1
         @quantity = params[COMPARISON_LOOKUP.keys.find { |param| params[param] }] || 0
-        @chance = params[:chance] || 1
+        @chance = if params[:chance].is_a?(Hash)
+          @if_not_chance = true
+          params[:chance][:if_not]
+        else
+          params[:chance] || 1
+        end
         @required = params[:required] || false
         @comparison = COMPARISON_LOOKUP[
           COMPARISON_LOOKUP.keys.find { |param| params[param] } ||
@@ -16,8 +21,13 @@ module Map
       end
     
       def pass?(square)
-        square.neighbours_by_terrain(@terrain, @within).count.send(@comparison, @quantity) &&
-        rand < @chance
+        if @if_not_chance
+          square.neighbours_by_terrain(@terrain, @within).count.send(@comparison, @quantity) ||
+          rand < @chance          
+        else
+          square.neighbours_by_terrain(@terrain, @within).count.send(@comparison, @quantity) &&
+          rand < @chance
+        end
       end
     end
   end
