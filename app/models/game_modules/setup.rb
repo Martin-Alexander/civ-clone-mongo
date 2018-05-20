@@ -4,7 +4,7 @@ module GameModules
     def generate_game_data
       update!(size: caluculate_board_size)
       # board = Board.new(size)
-      board = Map::Generator.run(size: size)
+      board = Map::Generator.run(size: size, template: Map::Templates::Denser)
 
       set_player_numbers
       generate_global_squares(board)
