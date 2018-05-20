@@ -24,12 +24,6 @@ export default class UnitsController {
     if (this.UI.currentPath.length > 1) { 
       this.destinationSquare = this.gameData.findSquare(this.UI.currentPath[this.UI.currentPath.length - 1]);
       this.determineAndSendUnitCommand();
-  
-      this.UI.selection.structure = null;
-      this.UI.selection.square = null;
-      this.UI.selection.unit = null;
-      this.UI.currentPath = null;
-      this.UI.reachableSquares= null;
     }  
   };
 

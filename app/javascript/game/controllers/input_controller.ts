@@ -41,10 +41,15 @@ export default class InputController {
   };
 
   // Selecting a square and cycling through units & structures
-  public selectSquare(): boolean {
+  public selectSquare(square?: Square): boolean {
     if (!this.authorized("selectSquare")) { return false; }
   
-    const selectedSquare = this.squareClickedOn();
+    let selectedSquare: Square;
+    if (square === undefined) {
+      selectedSquare = this.squareClickedOn();
+    } else {
+      selectedSquare = square;
+    }
   
     // Selecting the same square twice will no longer deselected it
     if (selectedSquare.units.length > 0 || selectedSquare.hasStructure(StructureType.city)) {
@@ -52,10 +57,7 @@ export default class InputController {
       this.selectUnit(selectedSquare);
       this.selectStructure(selectedSquare);
     } else {
-      this.UI.selection.structure = null;
-      this.UI.selection.square = null;
-      this.UI.selection.unit = null;
-      this.UI.reachableSquares = null;
+      this.deslectAll();
     }
   
     this.reactController.updateUI();
@@ -63,6 +65,14 @@ export default class InputController {
 
     return true;
   };
+
+  private deslectAll(): void {
+    this.UI.selection.structure = null;
+    this.UI.selection.square = null;
+    this.UI.selection.unit = null;
+    this.UI.currentPath = null;
+    this.UI.reachableSquares= null;
+  }
 
   // Console logs the square object that was clicked on
   infoClick(): void {
@@ -106,7 +116,9 @@ export default class InputController {
     }
   
     this.unitsController.move();
-  
+    
+    this.deslectAll();
+
     this.reactController.updateUI();
 
     return true;
@@ -146,6 +158,8 @@ export default class InputController {
       unit: this.UI.selection.unit.id,
       order: order
     });
+
+    this.deslectAll();
 
     return true;
   };

@@ -3,11 +3,15 @@ import GameData from "./../game_data";
 import UserInterface from "./../user_interface";
 import ReactController from "./react_controller";
 import AnimationData from "../models/animation_data";
+import InputController from "./input_controller";
+import Unit from "../models/unit";
 
 export default class GameDataController {
   readonly gameData: GameData;
   readonly UI: UserInterface;
   readonly reactController: ReactController;
+
+  public inputController: InputController;
 
   constructor(gameData: GameData, UI: UserInterface, reactController: ReactController) {
     this.gameData = gameData;
@@ -21,7 +25,9 @@ export default class GameDataController {
     this.replaceSquare(data.new_squares[0])
     if (data.new_squares[1]) {
       animationCallback(data, () => {
-        this.replaceSquare(data.new_squares[1])
+        const newSquare = this.replaceSquare(data.new_squares[1]);
+        const movedUnit = new Unit(data.moved_unit, newSquare);
+        if (movedUnit.moves > 0) { this.inputController.selectSquare(newSquare); }
       });
     }
 
