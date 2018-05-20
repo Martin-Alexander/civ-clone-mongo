@@ -27,7 +27,7 @@ export default class GameDataController {
       animationCallback(data, () => {
         const newSquare = this.replaceSquare(data.new_squares[1]);
         const movedUnit = new Unit(data.moved_unit, newSquare);
-        if (movedUnit.moves > 0) { this.inputController.selectSquare(newSquare); }
+        // if (movedUnit.moves > 0) { this.inputController.selectSquare(newSquare); }
       });
     }
 
