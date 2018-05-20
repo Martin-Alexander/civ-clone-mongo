@@ -35,14 +35,14 @@ module GameModules
 
     # Attempts to set starting player locations as fairly as possible
     def create_starting_player_locations(board)
-      # locations = board.player_starting_locations(player_count(role: "player"))
+      locations = board.player_starting_locations(player_count(role: "player"))
 
-      # locations.each_with_index do |square, i|
-      #   starting_square = find_square(square.x, square.y)
-      #   starting_square.create_worker player_number: i + 1
-      #   starting_square.create_infantry player_number: i + 1
-      #   starting_square.create_city player_number: i + 1, complete: true, size: 5
-      # end
+      locations.each_with_index do |square, i|
+        starting_square = find_square(square.x, square.y)
+        starting_square.create_worker player_number: i + 1
+        starting_square.create_infantry player_number: i + 1
+        starting_square.create_city player_number: i + 1, complete: true, size: 5
+      end
     end
 
     # Initializes game players

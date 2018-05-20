@@ -141,6 +141,7 @@ class Board
   def player_starting_locations(number_of_players)
     suitable_squares = squares.select do |square|
       !["water", "desert", "mountains"].include?(square.terrain) &&
+      # asdasd
         square.neighbouring_terrain("mountains", 1).zero? &&
         square.neighbouring_terrain("desert", 2).zero? &&
         square.neighbours(3).length > 40

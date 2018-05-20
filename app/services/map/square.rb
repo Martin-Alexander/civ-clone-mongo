@@ -24,9 +24,18 @@ module Map
         neighbour.terrain == comparison_terrain
       end
     end
-
+    
     def count_neighbours_by_terrain(comparison_terrain, radius = 1)
       neighbours_by_terrain(comparison_terrain, radius).count
+    end
+
+    def desirability(radius)
+      running_total = 0
+      neighbours(radius).each do |neighbour|
+        running_total += neighbour.terrain_desirability
+      end
+
+      (running_total / 1000) * 1000
     end
 
     def starting_desirability(options = {})
@@ -41,11 +50,9 @@ module Map
 
     def inspect; to_s; end
 
-    private
-
     def terrain_desirability
       desirability_lookup = {
-        grass: 175,
+        grass: 150,
         plains: 150,
         desert: 10,
         water: 50,
@@ -54,6 +61,8 @@ module Map
 
       desirability_lookup[@terrain.to_sym]
     end
+
+    private
 
     def terrain?(comparison_terrain)
       @terrain == comparison_terrain
