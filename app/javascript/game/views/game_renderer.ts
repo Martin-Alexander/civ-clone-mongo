@@ -89,8 +89,10 @@ export default class GameRenderer {
     if (square.structures[0]) { 
       if (square.hasStructure(StructureType.city)) {
         square.getStructure(StructureType.city).render(context, UI);
-      } else {
-        square.structures[0].render(context, UI);
+      }
+
+      if (square.hasStructure(StructureType.road)) {
+        square.getStructure(StructureType.road).render(context, UI);
       }
     }
     if (UI.selection.square == square && UI.selection.unit)
@@ -126,10 +128,11 @@ export default class GameRenderer {
         if (UI.currentPath[i + 1].moveNumber) {
           context.font = `${(UI.tileHeight / 2)}px sans-serif`;
           context.fillStyle = "black"
-          context.fillText(`${UI.currentPath[i + 1].moveNumber}`, cumulativeTranslationOffset.x, cumulativeTranslationOffset.y);
+          context.fillText(`${UI.currentPath[i + 1].moveNumber}`, cumulativeTranslationOffset.x, cumulativeTranslationOffset.y - 2);
         }
       }
-      context.strokeStyle = "black";
+      context.strokeStyle = "blue";
+      context.lineWidth = UI.tileHeight / 15;
       context.stroke();
       context.restore();
     }
