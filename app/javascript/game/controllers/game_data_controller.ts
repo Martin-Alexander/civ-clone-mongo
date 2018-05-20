@@ -4,7 +4,6 @@ import UserInterface from "./../user_interface";
 import ReactController from "./react_controller";
 import AnimationData from "../models/animation_data";
 import InputController from "./input_controller";
-import Unit from "../models/unit";
 
 export default class GameDataController {
   readonly gameData: GameData;
