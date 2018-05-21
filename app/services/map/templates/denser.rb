@@ -96,7 +96,7 @@ all_squares.generate "river", coverage: :all, passes: 1 do |square|
   square.has more_than: 2, terrain: "river", within: 1
 end
 
-all_squares.select { |square| square.terrain == "river" }.each { |square| square.terrain = "water" }
+all_squares.each { |square| square.terrain = "water" if square.terrain == "river" }
 
 
 ################################### THE REST OF THE STUFF ##########################################
