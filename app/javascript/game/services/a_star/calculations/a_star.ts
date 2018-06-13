@@ -1,8 +1,8 @@
 import AStarSquareCollection     from "./../a_star_square_collection";
 import BoardMethods              from "./../board_methods";
 import AStarSquare               from "./../a_star_square";
-import Square from "../../../models/square";
-import Unit from "../../../models/unit";
+import Square                    from "../../../models/square";
+import Unit                      from "../../../models/unit";
 
 // This is a basic implementation of the A* algorithm that is designed to find a path between two
 // squares. It is only used to connect "turn-moves".

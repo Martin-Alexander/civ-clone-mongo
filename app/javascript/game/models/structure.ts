@@ -38,37 +38,40 @@ export default class Structure {
       context.fill();
     } else if (this.type === StructureType.road) {
       // El Atrocidad
+      try {
+        if (this.game.findSquare(this.square.x - 1, this.square.y - 1).hasStructure(StructureType.road)) {
+          this.drawRoad("north", context, UI);
+        }
+  
+        if (this.game.findSquare(this.square.x, this.square.y - 1).hasStructure(StructureType.road)) {
+          this.drawRoad("north-east", context, UI);
+        }
+  
+        if (this.game.findSquare(this.square.x + 1, this.square.y - 1).hasStructure(StructureType.road)) {
+          this.drawRoad("east", context, UI);
+        }
+        
+        if (this.game.findSquare(this.square.x + 1, this.square.y).hasStructure(StructureType.road)) {
+          this.drawRoad("south-east", context, UI);
+        }
+  
+        if (this.game.findSquare(this.square.x + 1, this.square.y + 1).hasStructure(StructureType.road)) {
+          this.drawRoad("south", context, UI);
+        }
+        
+        if (this.game.findSquare(this.square.x, this.square.y + 1).hasStructure(StructureType.road)) {
+          this.drawRoad("south-west", context, UI);
+        }
+        
+        if (this.game.findSquare(this.square.x - 1, this.square.y + 1).hasStructure(StructureType.road)) {
+          this.drawRoad("west", context, UI);
+        }
+  
+        if (this.game.findSquare(this.square.x - 1, this.square.y).hasStructure(StructureType.road)) {
+          this.drawRoad("north-west", context, UI);
+        }
+      } catch {
 
-      if (this.game.findSquare(this.square.x - 1, this.square.y - 1).hasStructure(StructureType.road)) {
-        this.drawRoad("north", context, UI);
-      }
-
-      if (this.game.findSquare(this.square.x, this.square.y - 1).hasStructure(StructureType.road)) {
-        this.drawRoad("north-east", context, UI);
-      }
-
-      if (this.game.findSquare(this.square.x + 1, this.square.y - 1).hasStructure(StructureType.road)) {
-        this.drawRoad("east", context, UI);
-      }
-      
-      if (this.game.findSquare(this.square.x + 1, this.square.y).hasStructure(StructureType.road)) {
-        this.drawRoad("south-east", context, UI);
-      }
-
-      if (this.game.findSquare(this.square.x + 1, this.square.y + 1).hasStructure(StructureType.road)) {
-        this.drawRoad("south", context, UI);
-      }
-      
-      if (this.game.findSquare(this.square.x, this.square.y + 1).hasStructure(StructureType.road)) {
-        this.drawRoad("south-west", context, UI);
-      }
-      
-      if (this.game.findSquare(this.square.x - 1, this.square.y + 1).hasStructure(StructureType.road)) {
-        this.drawRoad("west", context, UI);
-      }
-
-      if (this.game.findSquare(this.square.x - 1, this.square.y).hasStructure(StructureType.road)) {
-        this.drawRoad("north-west", context, UI);
       }
 
     } else {
@@ -148,7 +151,7 @@ export default class Structure {
       farm: "#627221",
       city: "#80a09f"
     }
-  
+
     return structureTypeColorLookup[this.type];
   };
 
