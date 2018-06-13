@@ -19,6 +19,10 @@ module Map
       end
     end
 
+    def neighbours_and_self(radius = 1)
+      neighbours(radius) + [self]
+    end
+
     def neighbours_by_terrain(comparison_terrain, radius = 1)
       neighbours(radius).select do |neighbour|
         neighbour.terrain == comparison_terrain
