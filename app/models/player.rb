@@ -3,6 +3,7 @@ class Player
   include CivCloneMongoModel
 
   embedded_in :game
+  has_many :diplomatic_stances
 
   field :role, type: String, default: "player"
   field :host, type: Boolean, default: false
