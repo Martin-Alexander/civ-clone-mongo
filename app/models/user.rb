@@ -13,7 +13,7 @@ class User
   def email_changed?; false; end
 
   def players
-    Game.all.flat_map(&:players).select { |player| player.user == self }
+    Game.all.flat_map(&:players).select { |player| player.user_id == id }
   end
 
   # ==== Methods that return games ====
