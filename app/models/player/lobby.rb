@@ -1,5 +1,24 @@
 class Player
   module Lobby
+    def self.included(base)
+      base.extend(ClassMethods)
+    end
+
+    module ClassMethods
+      def self.extended(base)
+        base.call
+      end
+      
+      def call
+        field :role, type: String, default: "player"
+        field :host, type: Boolean, default: false
+        field :raw_user_id, type: String
+        field :username, type: String
+        
+        validates :role, inclusion: { in: ["player", "dead_player", "observer"] }
+      end
+    end
+
     def user
       User.find(user_id)
     end
