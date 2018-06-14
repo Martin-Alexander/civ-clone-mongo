@@ -13,11 +13,7 @@ class User
   def email_changed?; false; end
 
   def players
-    players_belonging_to_user = []
-    Game.all.each do |game|
-      players_belonging_to_user << game.players.find { |player| player.user == self }
-    end
-    players_belonging_to_user
+    Game.all.flat_map(&:players).select { |player| player.user == self }
   end
 
   # ==== Methods that return games ====
