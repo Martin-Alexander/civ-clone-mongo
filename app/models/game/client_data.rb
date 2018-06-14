@@ -1,4 +1,4 @@
-module GameModules
+class Game
   module ClientData
     # Returns a hash of game data that is prepared for the client
     def client_game_data(current_user)
