@@ -1,10 +1,10 @@
 class Player
   include Mongoid::Document
   include CivCloneMongoModel
-
+  
   embedded_in :game
-  has_many :diplomatic_stances
-
+  embeds_many :diplomatic_stances
+  
   field :role, type: String, default: "player"
   field :host, type: Boolean, default: false
   field :raw_user_id, type: String
