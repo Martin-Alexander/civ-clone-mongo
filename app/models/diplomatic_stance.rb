@@ -2,6 +2,8 @@ class DiplomaticStance
   ENEMY   = 0
   NEUTRAL = 1
   ALLY    = 2
+  
+  validate :status, inclusion: { in: [ENEMY, NEUTRAL, ALLY] }
 
   include Mongoid::Document
   include CivCloneMongoModel
@@ -21,5 +23,17 @@ class DiplomaticStance
 
   def target_player=(target_player)
     self.target_player_id = target_player.id
+  end
+
+  def ally?
+    status == ALLY
+  end
+
+  def neutral?
+    status == NEUTRAL
+  end
+
+  def enemy?
+    status == ENEMY
   end
 end
