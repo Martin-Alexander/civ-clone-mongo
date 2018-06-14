@@ -1,4 +1,4 @@
-class Game
+module GameModules
   module Lobby
     def self.included(base)
       base.extend(ClassMethods)

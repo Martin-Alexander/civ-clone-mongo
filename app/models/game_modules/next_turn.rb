@@ -1,4 +1,4 @@
-class Game
+module GameModules
   module NextTurn
     # Handles all game logic related to turn roll-over
     def next_turn
