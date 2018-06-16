@@ -4,10 +4,10 @@ class Game
   
   include Math
 
-  include Game::Setup
-  include Game::Lobby
-  include Game::Logic
-  include Game::ClientData
+  include GameModules::Setup
+  include GameModules::Lobby
+  include GameModules::Logic
+  include GameModules::ClientData
 
   direct_children :players, :squares
 

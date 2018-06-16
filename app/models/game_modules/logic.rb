@@ -1,4 +1,4 @@
-class Game
+module GameModules
   module Logic
     include NextTurn
     # Returns whether or not all players are ready'd up

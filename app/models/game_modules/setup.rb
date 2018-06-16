@@ -1,4 +1,4 @@
-class Game
+module GameModules
   module Setup
     # Generates game and initialize players
     def generate_game_data
